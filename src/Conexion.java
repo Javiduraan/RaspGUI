@@ -156,7 +156,7 @@ public class Conexion {
     return resultado;
     
    }
-   public static boolean logAccessFail(String userId, String date, String time, String details){
+   /*public static boolean logAccessFail(String userId, String date, String time, String details){
        Statement consulta; 
        try{
            consulta = cone.createStatement();
@@ -164,5 +164,5 @@ public class Conexion {
            return false;
        }
        String getUserId = "SELECT userId FROM users WHERE "
-   }
+   }*/
 }
