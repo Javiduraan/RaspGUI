@@ -294,6 +294,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AgregarUsuario().setVisible(true);
+                //samy el prron roto robotoooooooooooo
             }
         });
     }
