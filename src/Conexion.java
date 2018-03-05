@@ -156,13 +156,20 @@ public class Conexion {
     return resultado;
     
    }
-   /*public static boolean logAccessFail(String userId, String date, String time, String details){
+   public static String logAccessFail(String userId, String date, String time, String details){
        Statement consulta; 
        try{
            consulta = cone.createStatement();
        }catch(SQLException ex){
-           return false;
+           return "Error al crear consulta.";
        }
-       String getUserId = "SELECT userId FROM users WHERE "
-   }*/
+       String getUserId = "SELECT userId FROM users WHERE username = '" + userId + "';";// Esto esta malito.
+       try{
+           ResultSet rs = consulta.executeQuery(getUserId);
+           
+       }catch(SQLException ex){
+           return "Error al ejecutar la consulta.";
+       }
+       return "Aqui se acaba";
+   }
 }
