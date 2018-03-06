@@ -12,6 +12,8 @@ import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +32,8 @@ import sun.misc.BASE64Encoder;
  */
 public class LogIn extends javax.swing.JFrame {
  Conexion cone = new Conexion();
+ LocalDate date = LocalDate.now();
+ LocalTime time = LocalTime.now();
 
 
     public LogIn() {
@@ -138,6 +142,11 @@ public class LogIn extends javax.swing.JFrame {
         String pass = txtPass.getText();
         AdminVen ventanaAdmin = new AdminVen();
         SecFrameLamp ventanaLamp = new SecFrameLamp();
+      String userId =  Conexion.getUserId(user);
+      if(userId.contentEquals("")){
+          userId = "5";
+      }
+      String details = "Usuario o Contraseña Incorrecta";
  
     if(Conexion.cone == null){
             try {
@@ -155,7 +164,7 @@ public class LogIn extends javax.swing.JFrame {
            if(Conexion.validarUser()==1){
                ventanaLamp.setVisible(true);
              }else{
-               
+               Conexion.accessLogFail(userId, date.toString(), time.toString(), details);
                JOptionPane.showMessageDialog(null,"Usuario y contraseña incorrectos!");
                }
      }
