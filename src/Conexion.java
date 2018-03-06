@@ -91,6 +91,9 @@ public class Conexion {
        }
        return true;
    }
+   public static boolean salonNuevo(String salon){
+       return true;
+   }
    public static String encriptar(String usuario, String passwd){
       String passEncr="";
       while(usuario.length() < 8){
