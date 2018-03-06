@@ -156,20 +156,26 @@ public class Conexion {
     return resultado;
     
    }
-   public static String logAccessFail(String userId, String date, String time, String details){
-       Statement consulta; 
+   public static String getUserId (String username){
+       Statement consulta;
+        int resultado;
+       String resul= "";
        try{
-           consulta = cone.createStatement();
+         consulta = cone.createStatement();
        }catch(SQLException ex){
-           return "Error al crear consulta.";
+           return "Error creando statement";
        }
-       String getUserId = "SELECT userId FROM users WHERE username = '" + userId + "';";// Esto esta malito.
+       String SQL = "SELECT userId FROM users WHERE username='"+username+"';";
        try{
-           ResultSet rs = consulta.executeQuery(getUserId);
-           
+          ResultSet rs = consulta.executeQuery(SQL);
+          if(rs.next()){
+            resultado = rs.getInt("userId"); 
+           resul = Integer.toString(resultado);
+          }
        }catch(SQLException ex){
-           return "Error al ejecutar la consulta.";
+           System.out.println(ex.toString());
+           return "Error al hacer la consulta";
        }
-       return "Aqui se acaba";
+       return resul;
    }
 }

@@ -58,6 +58,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lblGetUserId = new javax.swing.JLabel();
+        btnGetUserId = new javax.swing.JButton();
+        txtGetUserId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Usuario");
@@ -253,21 +256,41 @@ public class AgregarUsuario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        lblGetUserId.setText("XD");
+
+        btnGetUserId.setText("getUserId");
+        btnGetUserId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGetUserIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(472, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addComponent(lblGetUserId)
+                .addGap(52, 52, 52)
+                .addComponent(btnGetUserId)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtGetUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(406, 406, 406))
+                .addGap(348, 348, 348))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblGetUserId)
+                        .addComponent(btnGetUserId)
+                        .addComponent(txtGetUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacoras", jPanel3);
@@ -324,6 +347,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Edificio agregado");
     }//GEN-LAST:event_btnAddBuildActionPerformed
 
+    private void btnGetUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetUserIdActionPerformed
+       String username = txtGetUserId.getText();
+      String UserId = Conexion.getUserId(username);
+       lblGetUserId.setText(UserId);
+    }//GEN-LAST:event_btnGetUserIdActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,6 +392,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddBuild;
     private javax.swing.JButton btnAgregaUser;
+    private javax.swing.JButton btnGetUserId;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -384,9 +414,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblGetUserId;
     private javax.swing.JLabel lblHash;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtGetUserId;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPasswd;
