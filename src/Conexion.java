@@ -91,8 +91,27 @@ public class Conexion {
        }
        return true;
    }
-   public static boolean salonNuevo(String salon){
-       return true;
+   public static String getBuildId(String name){
+       Statement query;
+       int resultado;
+       String resul = "";
+       try {
+           query = cone.createStatement();
+       } catch (Exception ex) {
+           return "error";
+       }
+       String select = "SELECT buildingId FROM Buildings WHERE name='"+name+"';";
+       try{
+          ResultSet rs = query.executeQuery(select);
+          if(rs.next()){
+            resultado = rs.getInt("buildingId"); 
+           resul = Integer.toString(resultado);
+          }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return "Error al hacer la consulta";
+       }
+       return resul;
    }
    public static String encriptar(String usuario, String passwd){
       String passEncr="";
