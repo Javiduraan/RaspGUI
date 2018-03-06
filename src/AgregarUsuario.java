@@ -326,6 +326,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
         int  accessLevel = combAccessLvl.getSelectedIndex();
         String mail = txtEmail.getText();
         String phone = txtPhone.getText();
+        
+        
      if(VerifyPasswd.equals(DESCipher)){
         String PassEncrypted = Conexion.encriptar(NewUser, DESCipher);
          lblHash.setText(PassEncrypted);
@@ -337,11 +339,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregaUserActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnAddBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBuildActionPerformed
-        // TODO add your handling code here:
+       
         String NewBuild= txtBuild.getText();
         Conexion.edificioNuevo(NewBuild);
         JOptionPane.showMessageDialog(null, "Edificio agregado");
@@ -349,7 +351,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
     private void btnGetUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetUserIdActionPerformed
        String username = txtGetUserId.getText();
-      String UserId = Conexion.getUserId(username);
+       String UserId = Conexion.getUserId(username);
        lblGetUserId.setText(UserId);
     }//GEN-LAST:event_btnGetUserIdActionPerformed
 

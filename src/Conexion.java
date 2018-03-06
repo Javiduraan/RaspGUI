@@ -181,4 +181,13 @@ public class Conexion {
        }
        return resul;
    }
+   public static boolean accessLogFail(String userId, String date, String time, String details){
+       Statement consulta;
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           return false;
+       }
+       String SQL = "INSERT INTO failaccesslogs (userId, date, time, details) VALUES ("+userId+", DATE('"+date+"'), " 
+   }
 }
