@@ -1,22 +1,44 @@
-import java.io.*;
-import javax.crypto.*;
-import javax.crypto.spec.DESKeySpec;
-import java.security.*;
-import java.security.spec.InvalidKeySpecException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.spec.SecretKeySpec;
+
 import javax.swing.JOptionPane;
-import sun.misc.BASE64Encoder;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
 public class AgregarUsuario extends javax.swing.JFrame {
    
+    DefaultTableModel modeloTabla;
+    
  
     public AgregarUsuario() {
+        modeloTabla = new DefaultTableModel(null, getColumnas());
+        setFilas();
         initComponents();
     }
-
+    
+    private String[] getColumnas(){
+        String columna[] = new String[]{"Id","UserId","Fecha","Tiempo","Detalles"};
+        return columna;
+    }
+    private void setFilas(){
+        try{
+            String sentencia = "SELECT failAccessLogId, userId, date, time, details FROM failaccesslogs";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[5];
+             while(rs.next()){
+                 for (int i = 0; i < 5; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTabla.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("error en agregando filas a la tabla.");
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -243,17 +265,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(modeloTabla);
         jScrollPane1.setViewportView(jTable1);
 
         lblGetUserId.setText("XD");
@@ -290,7 +302,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         .addComponent(btnGetUserId)
                         .addComponent(txtGetUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacoras", jPanel3);
