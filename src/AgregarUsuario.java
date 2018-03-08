@@ -40,6 +40,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         ResultSet rs = sel.executeQuery();
                         
                         Object datos[] = new Object[5];
+            while(modeloTabla.getRowCount() > 0) {
+                modeloTabla.removeRow(0);
+            }  
+            
              while(rs.next()){
                  for (int i = 0; i < 5; i++){
                      datos[i] = rs.getObject(i + 1);
@@ -61,6 +65,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         ResultSet rs = sel.executeQuery();
                         
                         Object datos[] = new Object[6];
+            while(modeloTablaUsers12.getRowCount() > 0) {
+                modeloTablaUsers12.removeRow(0);
+            }  
+            
              while(rs.next()){
                  for (int i = 0; i < 6; i++){
                      datos[i] = rs.getObject(i + 1);
@@ -82,6 +90,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         ResultSet rs = sel.executeQuery();
                         
                         Object datos[] = new Object[5];
+            while(modeloTablaOkAccess12.getRowCount() > 0) {
+                modeloTablaOkAccess12.removeRow(0);
+            }               
              while(rs.next()){
                  for (int i = 0; i < 5; i++){
                      datos[i] = rs.getObject(i + 1);
@@ -140,6 +151,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Usuario");
@@ -336,17 +348,29 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable3.setModel(modeloTablaUsers12);
         jScrollPane3.setViewportView(jTable3);
 
+        jButton1.setText("Recargar Tablas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(573, 573, 573)
+                        .addComponent(jButton1)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -357,7 +381,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacoras", jPanel3);
@@ -431,6 +457,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
        //ds
     }//GEN-LAST:event_btnAddClassRoomActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setRowFailAccess();
+        setRowUsers();
+        setRowOkAccess();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -472,6 +504,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAddClassRoom;
     private javax.swing.JButton btnAgregaUser;
     private javax.swing.JComboBox<String> combAccessLvl;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

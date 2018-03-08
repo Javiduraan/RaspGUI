@@ -145,7 +145,7 @@ public class LogIn extends javax.swing.JFrame {
       String userId =  Conexion.getUserId(user);
       if(userId.contentEquals("")){
           userId = "5";
-      }
+      } 
       String details = "Usuario o Contraseña Incorrecta";
  
     if(Conexion.cone == null){
