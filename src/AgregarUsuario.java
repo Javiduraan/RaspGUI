@@ -421,8 +421,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
        String classRoom = txtclassRoom.getText();
         
        String buildID =Conexion.getBuildId(build);
-       Conexion.newClassRoom(buildID, classRoom);
-       JOptionPane.showMessageDialog(null, "se agrego el salon");
+        if (buildID.contentEquals("catch 2")) {
+            JOptionPane.showMessageDialog(null, "no se agrego el edificio");
+        }else  {
+          Conexion.newClassRoom(buildID, classRoom);
+          JOptionPane.showMessageDialog(null, "se agrego el salon");
+        }
+       
        //ds
     }//GEN-LAST:event_btnAddClassRoomActionPerformed
 

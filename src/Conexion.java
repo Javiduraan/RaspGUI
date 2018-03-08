@@ -127,7 +127,8 @@ public class Conexion {
           }
        }catch(SQLException ex){
            System.out.println(ex.toString());
-           return "Error al hacer la consulta";
+           
+           return "catch 2";
            //s
        }
        return resul;
