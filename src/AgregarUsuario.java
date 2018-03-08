@@ -6,19 +6,33 @@ import java.sql.*;
 public class AgregarUsuario extends javax.swing.JFrame {
    
     DefaultTableModel modeloTabla;
+    DefaultTableModel modeloTablaUsers12;
+    DefaultTableModel modeloTablaOkAccess12;
     
  
     public AgregarUsuario() {
-        modeloTabla = new DefaultTableModel(null, getColumn());
-        setRow();
+        modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
+        modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
+        modeloTablaOkAccess12 = new DefaultTableModel(null, getColumnOkAccess());
+        setRowFailAccess();
+        setRowUsers();
+        setRowOkAccess();
         initComponents();
     }
     
-    private String[] getColumn(){
+    private String[] getColumnFailAccess(){
         String columna[] = new String[]{"Id","UserId","Fecha","Tiempo","Detalles"};
         return columna;
     }
-    private void setRow(){
+    private String[] getColumnUsers(){
+        String columna[] = new String[]{"Id","Usuario","Nombre","Apellido","Nivel","Telefono"};
+        return columna;
+    }
+    private String[] getColumnOkAccess(){
+        String columna[] = new String[]{"Id","UserId","Fecha","Hora","Detalles"};
+        return columna;
+    }
+    private void setRowFailAccess(){
         try{
             String sentencia = "SELECT failAccessLogId, userId, date, time, details FROM failaccesslogs";
             
@@ -35,6 +49,48 @@ public class AgregarUsuario extends javax.swing.JFrame {
              rs.close();
          }catch(SQLException ex){
              System.out.println("error en agregando filas a la tabla.");
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
+    private void setRowUsers(){
+        try{
+            String sentencia = "SELECT userId, username, firstName, lastName, accessLevel, phone FROM users";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[6];
+             while(rs.next()){
+                 for (int i = 0; i < 6; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaUsers12.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error en agregando filas a la tabla.");
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
+    private void setRowOkAccess(){
+        try{
+            String sentencia = "SELECT okAccessLogId, userId, date, time, details FROM okaccesslogs";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[5];
+             while(rs.next()){
+                 for (int i = 0; i < 5; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaOkAccess12.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error en agregando filas a la tabla.");
          }catch(ClassNotFoundException ex){
              System.out.println("Error en el metodo crear Conexion.");
          }
@@ -80,6 +136,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Usuario");
@@ -266,21 +326,35 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTable1);
 
+        jTable2.setModel(modeloTablaOkAccess12);
+        jScrollPane2.setViewportView(jTable2);
+
+        jTable3.setModel(modeloTablaUsers12);
+        jScrollPane3.setViewportView(jTable3);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(415, 415, 415)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(463, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacoras", jPanel3);
@@ -396,8 +470,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblHash;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtEmail;

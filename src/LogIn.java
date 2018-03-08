@@ -158,10 +158,14 @@ public class LogIn extends javax.swing.JFrame {
             }
     }    
      if(user.contentEquals("admin")&& pass.contentEquals("gatete")){
+          String detalleAdmin = "Acceso administrativo autorizado.";
+          Conexion.okAccessLog(userId, date.toString(), time.toString(), detalleAdmin);
            ventanaAdmin.setVisible(true);
            this.dispose();
       }else{          
            if(Conexion.validarUser()==1){
+               String detalleMortal = "Acceso autorizado.";
+               Conexion.okAccessLog(userId, date.toString(), time.toString(), detalleMortal);
                ventanaLamp.setVisible(true);
              }else{
                Conexion.accessLogFail(userId, date.toString(), time.toString(), details);

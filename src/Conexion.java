@@ -217,4 +217,21 @@ public class Conexion {
        }
        return true;
    }
+   public static boolean okAccessLog(String userId, String date, String time, String details){
+       Statement consulta;
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       String SQL = "INSERT INTO okaccesslogs (userId, date, time, details) VALUES ("+userId+", '"+date+"', '"+time+"', '"+details+"');";
+       try{
+          consulta.execute(SQL);
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       return true;
+   }
 }
