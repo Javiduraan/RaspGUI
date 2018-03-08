@@ -14,6 +14,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.swing.JOptionPane;
 import sun.misc.BASE64Encoder;
 
 
@@ -91,6 +92,23 @@ public class Conexion {
        }
        return true;
    }
+   public static boolean newClassRoom (String BuildId, String classRoom){
+       Statement query; 
+       try{
+           query = cone.createStatement();
+       }catch(SQLException ex){
+           return false; 
+       }
+       String insert = "INSERT INTO Rooms(buildingId, name) Values ('"+BuildId+"', '"+classRoom+"');";
+       try{
+           query.execute(insert);
+       }catch(SQLException ex){
+           System.out.println(ex);
+           return false;
+       }
+       return true;
+       
+   }
    public static String getBuildId(String name){
        Statement query;
        int resultado;
@@ -105,7 +123,7 @@ public class Conexion {
           ResultSet rs = query.executeQuery(select);
           if(rs.next()){
             resultado = rs.getInt("buildingId"); 
-           resul = Integer.toString(resultado);
+            resul = Integer.toString(resultado);
           }
        }catch(SQLException ex){
            System.out.println(ex.toString());

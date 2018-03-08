@@ -129,10 +129,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         txtBuild = new javax.swing.JTextField();
         btnAddBuild = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         txtclassRoom = new javax.swing.JTextField();
         btnAddClassRoom = new javax.swing.JButton();
+        txtBuildRoom = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -265,11 +265,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel9.setText("Edificio");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D" }));
-
         jLabel11.setText("Salon para agregar");
 
         btnAddClassRoom.setText("Agregar salon");
+        btnAddClassRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddClassRoomActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -292,10 +295,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
                                 .addComponent(jLabel9))
                             .addComponent(jLabel11))
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtclassRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(693, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtclassRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(txtBuildRoom))
+                        .addGap(59, 59, 59)))
+                .addContainerGap(634, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +309,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuildRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -351,9 +355,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -413,6 +416,15 @@ public class AgregarUsuario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Edificio agregado");
     }//GEN-LAST:event_btnAddBuildActionPerformed
 
+    private void btnAddClassRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassRoomActionPerformed
+       String build = txtBuildRoom.getText();
+       String classRoom = txtclassRoom.getText();
+        
+       String buildID =Conexion.getBuildId(build);
+       Conexion.newClassRoom(buildID, classRoom);
+       JOptionPane.showMessageDialog(null, "se agrego el salon");
+    }//GEN-LAST:event_btnAddClassRoomActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -454,7 +466,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAddClassRoom;
     private javax.swing.JButton btnAgregaUser;
     private javax.swing.JComboBox<String> combAccessLvl;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -478,6 +489,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTable3;
     private javax.swing.JLabel lblHash;
     private javax.swing.JTextField txtBuild;
+    private javax.swing.JTextField txtBuildRoom;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;
