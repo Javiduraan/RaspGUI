@@ -40,7 +40,7 @@ public class AdminVen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control de clima e iluminación");
 
-        btnAgregarUser.setText("Agregar Usuario ");
+        btnAgregarUser.setText("Control Administrativo");
         btnAgregarUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarUserActionPerformed(evt);

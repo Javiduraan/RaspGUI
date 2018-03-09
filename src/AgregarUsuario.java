@@ -152,6 +152,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Usuario");
@@ -388,6 +389,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Bitacoras", jPanel3);
 
+        btnback.setText("volver");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -397,12 +405,18 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addComponent(lblHash)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnback)
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnback)
+                .addGap(5, 5, 5)
                 .addComponent(lblHash)
                 .addContainerGap())
         );
@@ -463,6 +477,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
         setRowOkAccess();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+      AdminVen venCont = new AdminVen();
+      venCont.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_btnbackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -503,6 +523,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAddBuild;
     private javax.swing.JButton btnAddClassRoom;
     private javax.swing.JButton btnAgregaUser;
+    private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
