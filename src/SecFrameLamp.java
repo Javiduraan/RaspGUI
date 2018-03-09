@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Valeria
  */
 public class SecFrameLamp extends javax.swing.JFrame {
-
+    LogIn log = new LogIn();
     /**
      * Creates new form SecFrameLamp
      */
@@ -169,6 +169,7 @@ public class SecFrameLamp extends javax.swing.JFrame {
           try {
               JOptionPane.showMessageDialog(null, "La conexión sera cerrada.");
               Conexion.cerrar();
+              log.setVisible(true);
           } catch (SQLException ex) {
               Logger.getLogger(SecFrameLamp.class.getName()).log(Level.SEVERE, null, ex);
           }

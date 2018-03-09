@@ -148,7 +148,7 @@ public class LogIn extends javax.swing.JFrame {
       } 
       String details = "Usuario o Contraseña Incorrecta";
  
-    if(Conexion.cone == null){
+    if(Conexion.cone != null){
             try {
                 Conexion.crear();
             } catch (SQLException ex) {

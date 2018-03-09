@@ -24,8 +24,8 @@ public class Conexion {
     if (cone == null) {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Buscamos el driver que vamos a utilizar
-            cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--masterrev1","JAVARD-SL--MASTER","clave");
-          //  cone = DriverManager.getConnection("jdbc:mysql://192.168.137.129:3306/Prototipo","lolo","tec2.123"); //Buscamos la base de datos con el usuario y pass para crear la conexion exitosa.
+            //cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--masterrev1","JAVARD-SL--MASTER","clave");
+            cone = DriverManager.getConnection("jdbc:mysql://192.168.137.243:3306/Prototipo","lolo","tec2.123"); //Buscamos la base de datos con el usuario y pass para crear la conexion exitosa.
             } catch (SQLException ex){ //Si no se consigue la conexion se el programa lanzara un error
                 throw new SQLException(ex);
             } catch (ClassNotFoundException ex) {
