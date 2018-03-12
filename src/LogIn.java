@@ -142,13 +142,14 @@ public class LogIn extends javax.swing.JFrame {
         String pass = txtPass.getText();
         AdminVen ventanaAdmin = new AdminVen();
         SecFrameLamp ventanaLamp = new SecFrameLamp();
-      String userId =  Conexion.getUserId(user);
+        String userId =  Conexion.getUserId(user);
+      
       if(userId.contentEquals("")){
-          userId = "5";
+          userId = "0";
       } 
       String details = "Usuario o Contraseña Incorrecta";
  
-    if(Conexion.cone != null){
+    if(Conexion.cone == null){
             try {
                 Conexion.crear();
             } catch (SQLException ex) {

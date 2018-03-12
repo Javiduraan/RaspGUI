@@ -20,12 +20,12 @@ import sun.misc.BASE64Encoder;
 
 public class Conexion {
     public static Connection cone = null;
-   public static Connection crear() throws SQLException, ClassNotFoundException { //Metodo para crear la conexion con la base de datos del Raspbrry
+  public static Connection crear() throws SQLException, ClassNotFoundException { //Metodo para crear la conexion con la base de datos del Raspbrry
     if (cone == null) {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Buscamos el driver que vamos a utilizar
-            //cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--masterrev1","JAVARD-SL--MASTER","clave");
-            cone = DriverManager.getConnection("jdbc:mysql://192.168.137.243:3306/Prototipo","lolo","tec2.123"); //Buscamos la base de datos con el usuario y pass para crear la conexion exitosa.
+            cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--master","JAVARD-SL--MASTERUSER","clave");
+          // cone = DriverManager.getConnection("jdbc:mysql://192.168.137.243:3306/Prototipo","lolo","tec2.123"); //Buscamos la base de datos con el usuario y pass para crear la conexion exitosa.
             } catch (SQLException ex){ //Si no se consigue la conexion se el programa lanzara un error
                 throw new SQLException(ex);
             } catch (ClassNotFoundException ex) {
@@ -57,7 +57,7 @@ public class Conexion {
        }
        
     return true;   
-   }
+   } //Rehacer esta parte para la nueva BD 
    public static boolean usuarioNuevo(String username, String passwd, String firstName, String LastName, int accesslvl, String eMail, String Phone ){
        Statement query;
        try{
@@ -76,7 +76,7 @@ public class Conexion {
            return false;
        }
        return true;
-   }
+   } //Esta parte no se Rehace 
    public static boolean edificioNuevo(String edificio){
        Statement query; 
        try{
@@ -91,7 +91,7 @@ public class Conexion {
            return false;
        }
        return true;
-   }
+   } //Esta parte tampoco se Rehace
    public static boolean newClassRoom (String BuildId, String classRoom){
        Statement query; 
        try{
@@ -108,8 +108,8 @@ public class Conexion {
        }
        return true;
        
-   }
-   public static String getBuildId(String name){
+   } //Esta PARTE SI SE REHACE, GRACIAS DANIEL.
+   public static String getBuildId(String name){ 
        Statement query;
        int resultado;
        String resul = "";
@@ -132,7 +132,7 @@ public class Conexion {
            //s
        }
        return resul;
-   }
+   } //Esto no se Rehace
    public static String encriptar(String usuario, String passwd){
       String passEncr="";
       while(usuario.length() < 8){
@@ -169,7 +169,7 @@ public class Conexion {
         }
        
        return passEncr;
-   }
+   } //Esto no se Rehace 
    public static int validarUser(){
        Statement consulta;
        String user = LogIn.txtUsuario.getText();
@@ -197,7 +197,7 @@ public class Conexion {
          
     return resultado;
     
-   }
+   } //Esto tampoco se Rehace 
    public static String getUserId (String username){
        Statement consulta;
         int resultado;
@@ -219,7 +219,7 @@ public class Conexion {
            return "Error al hacer la consulta";
        }
        return resul;
-   }
+   } //TAMPOCO 
    public static boolean accessLogFail(String userId, String date, String time, String details){
        Statement consulta;
        try{
@@ -236,7 +236,7 @@ public class Conexion {
            return false;
        }
        return true;
-   }
+   } //Esto tampoco se Rehace 
    public static boolean okAccessLog(String userId, String date, String time, String details){
        Statement consulta;
        try{
@@ -253,5 +253,5 @@ public class Conexion {
            return false;
        }
        return true;
-   }
+   } //Esto tampoco se cambia esta chido
 }
