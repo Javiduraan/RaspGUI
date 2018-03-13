@@ -411,9 +411,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
         btnTemp30.setBackground(new java.awt.Color(255, 0, 0));
         btnTemp30.setText("30");
 
-        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\MSI\\Downloads\\Temperature-icon.png")); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Temperatura1.png"))); // NOI18N
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\MSI\\Downloads\\Iluminacion.jpg")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iluminacion.jpg"))); // NOI18N
 
         RadiobtnLamp1.setText("Lampara 1 ");
 
@@ -430,14 +430,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+                .addGap(167, 167, 167)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnTemp30)
                     .addComponent(btnTemp25)
-                    .addComponent(btnTemp20))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
+                    .addComponent(btnTemp20)
+                    .addComponent(btnTemp30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,31 +451,34 @@ public class AgregarUsuario extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(btnTemp30)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnTemp25)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnTemp20)))
-                .addGap(58, 58, 58)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadiobtnLamp1)
-                    .addComponent(btnEncender))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadiobtnLamp2)
-                    .addComponent(btnApagar))
-                .addContainerGap(177, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(btnTemp30)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnTemp25)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(186, 186, 186)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(RadiobtnLamp1)
+                                    .addComponent(btnEncender))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(RadiobtnLamp2)
+                                    .addComponent(btnApagar)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(btnTemp20))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Control Maestro Iluminacion y Temperatura", jPanel5);
