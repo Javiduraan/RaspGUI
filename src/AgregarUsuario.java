@@ -411,9 +411,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
         btnTemp30.setBackground(new java.awt.Color(255, 0, 0));
         btnTemp30.setText("30");
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Temperatura1.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Temperatura1.png"))); // NOI18N
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iluminacion.jpg"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Iluminacion.jpg"))); // NOI18N
 
         RadiobtnLamp1.setText("Lampara 1 ");
 
