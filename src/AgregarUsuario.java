@@ -115,6 +115,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButton1 = new javax.swing.JRadioButton();
         lblHash = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -152,10 +153,23 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        btnTemp20 = new javax.swing.JButton();
+        btnTemp25 = new javax.swing.JButton();
+        btnTemp30 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        RadiobtnLamp1 = new javax.swing.JRadioButton();
+        RadiobtnLamp2 = new javax.swing.JRadioButton();
+        btnEncender = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
         btnback = new javax.swing.JButton();
+
+        jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Usuario");
+        setAutoRequestFocus(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lblHash.setText("Hash");
@@ -222,7 +236,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addComponent(btnAgregaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1094, Short.MAX_VALUE))
+                .addContainerGap(1103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +276,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(combAccessLvl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addComponent(btnAgregaUser)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Agregar Usuario", jPanel1);
@@ -312,7 +326,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                             .addComponent(txtclassRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                             .addComponent(txtBuildRoom))
                         .addGap(59, 59, 59)))
-                .addContainerGap(634, Short.MAX_VALUE))
+                .addContainerGap(647, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,7 +348,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         .addComponent(btnAddBuild)))
                 .addGap(16, 16, 16)
                 .addComponent(btnAddClassRoom)
-                .addContainerGap(458, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
@@ -372,7 +386,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(573, 573, 573)
                         .addComponent(jButton1)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,12 +398,89 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacoras", jPanel3);
 
-        btnback.setText("volver");
+        btnTemp20.setBackground(new java.awt.Color(51, 51, 255));
+        btnTemp20.setText("20");
+
+        btnTemp25.setText("25");
+
+        btnTemp30.setBackground(new java.awt.Color(255, 0, 0));
+        btnTemp30.setText("30");
+
+        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\MSI\\Downloads\\Temperature-icon.png")); // NOI18N
+
+        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\MSI\\Downloads\\Iluminacion.jpg")); // NOI18N
+
+        RadiobtnLamp1.setText("Lampara 1 ");
+
+        RadiobtnLamp2.setText("Lampara 2 ");
+
+        btnEncender.setBackground(new java.awt.Color(51, 255, 0));
+        btnEncender.setText("Encender ");
+
+        btnApagar.setBackground(new java.awt.Color(255, 0, 0));
+        btnApagar.setText("Apagar");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnTemp30)
+                    .addComponent(btnTemp25)
+                    .addComponent(btnTemp20))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadiobtnLamp1)
+                    .addComponent(RadiobtnLamp2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(162, 162, 162)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEncender))
+                .addGap(61, 61, 61))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(btnTemp30)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnTemp25)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnTemp20)))
+                .addGap(58, 58, 58)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RadiobtnLamp1)
+                    .addComponent(btnEncender))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RadiobtnLamp2)
+                    .addComponent(btnApagar))
+                .addContainerGap(177, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
+        );
+
+        jTabbedPane1.addTab("Control Maestro Iluminacion y Temperatura", jPanel5);
+
+        btnback.setText("Volver");
         btnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbackActionPerformed(evt);
@@ -400,21 +491,22 @@ public class AgregarUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnback)
+                .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblHash)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jTabbedPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnback)
-                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jTabbedPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnback)
                 .addGap(5, 5, 5)
                 .addComponent(lblHash)
@@ -423,6 +515,40 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+      AdminVen venCont = new AdminVen();
+      venCont.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_btnbackActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setRowFailAccess();
+        setRowUsers();
+        setRowOkAccess();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAddClassRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassRoomActionPerformed
+        String build = txtBuildRoom.getText();
+        String classRoom = txtclassRoom.getText();
+
+        String buildID =Conexion.getBuildId(build);
+        if (buildID.contentEquals("catch 2")) {
+            JOptionPane.showMessageDialog(null, "no se agrego el edificio");
+        }else  {
+            Conexion.newClassRoom(buildID, classRoom);
+            JOptionPane.showMessageDialog(null, "se agrego el salon");
+        }
+
+        //ds
+    }//GEN-LAST:event_btnAddClassRoomActionPerformed
+
+    private void btnAddBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBuildActionPerformed
+
+        String NewBuild= txtBuild.getText();
+        Conexion.edificioNuevo(NewBuild);
+        JOptionPane.showMessageDialog(null, "Edificio agregado");
+    }//GEN-LAST:event_btnAddBuildActionPerformed
 
     private void btnAgregaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregaUserActionPerformed
         String NewUser= txtUsername.getText();
@@ -433,55 +559,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
         int  accessLevel = combAccessLvl.getSelectedIndex();
         String mail = txtEmail.getText();
         String phone = txtPhone.getText();
-        
-        
-     if(VerifyPasswd.equals(DESCipher)){
-        String PassEncrypted = Conexion.encriptar(NewUser, DESCipher);
-         lblHash.setText(PassEncrypted);
-         Conexion.usuarioNuevo(NewUser, PassEncrypted, firstName, lastName, accessLevel, mail, phone);
-      JOptionPane.showMessageDialog(null, "Contraseña Verificada!");  
-     }else {
-       JOptionPane.showMessageDialog(null, "Contraseña no Verificada!");
-     }
+
+        if(VerifyPasswd.equals(DESCipher)){
+            String PassEncrypted = Conexion.encriptar(NewUser, DESCipher);
+            lblHash.setText(PassEncrypted);
+            Conexion.usuarioNuevo(NewUser, PassEncrypted, firstName, lastName, accessLevel, mail, phone);
+            JOptionPane.showMessageDialog(null, "Contraseña Verificada!");
+        }else {
+            JOptionPane.showMessageDialog(null, "Contraseña no Verificada!");
+        }
     }//GEN-LAST:event_btnAgregaUserActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-       
+
     }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void btnAddBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBuildActionPerformed
-       
-        String NewBuild= txtBuild.getText();
-        Conexion.edificioNuevo(NewBuild);
-        JOptionPane.showMessageDialog(null, "Edificio agregado");
-    }//GEN-LAST:event_btnAddBuildActionPerformed
-
-    private void btnAddClassRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassRoomActionPerformed
-       String build = txtBuildRoom.getText();
-       String classRoom = txtclassRoom.getText();
-        
-       String buildID =Conexion.getBuildId(build);
-        if (buildID.contentEquals("catch 2")) {
-            JOptionPane.showMessageDialog(null, "no se agrego el edificio");
-        }else  {
-          Conexion.newClassRoom(buildID, classRoom);
-          JOptionPane.showMessageDialog(null, "se agrego el salon");
-        }
-       
-       //ds
-    }//GEN-LAST:event_btnAddClassRoomActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setRowFailAccess();
-        setRowUsers();
-        setRowOkAccess();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-      AdminVen venCont = new AdminVen();
-      venCont.setVisible(true);
-      this.dispose();
-    }//GEN-LAST:event_btnbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -520,15 +611,24 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton RadiobtnLamp1;
+    private javax.swing.JRadioButton RadiobtnLamp2;
     private javax.swing.JButton btnAddBuild;
     private javax.swing.JButton btnAddClassRoom;
     private javax.swing.JButton btnAgregaUser;
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnEncender;
+    private javax.swing.JButton btnTemp20;
+    private javax.swing.JButton btnTemp25;
+    private javax.swing.JButton btnTemp30;
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -540,6 +640,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
