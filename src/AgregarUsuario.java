@@ -8,16 +8,18 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTabla;
     DefaultTableModel modeloTablaUsers12;
     DefaultTableModel modeloTablaOkAccess12;
-    DefaultTableModel TablaMostrarUsuarios;
+    DefaultTableModel modeloTablaMostrarUsuarios;
     
  
     public AgregarUsuario() {
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
         modeloTablaOkAccess12 = new DefaultTableModel(null, getColumnOkAccess());
+        modeloTablaMostrarUsuarios = new DefaultTableModel(null, getColumnAllUsers());
         setRowFailAccess();
         setRowUsers();
         setRowOkAccess();
+        setRowAllUsers();
         initComponents();
     }
     
@@ -31,6 +33,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private String[] getColumnOkAccess(){
         String columna[] = new String[]{"UserId","Fecha","Hora","Detalles"};
+        return columna;
+    }
+    private String[] getColumnAllUsers(){
+        String columna[] = new String[]{"Id","Usuario","contraseña","Nombre","Apellido","Nivel","Email","Telefono"};
         return columna;
     }
     
@@ -76,6 +82,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
                      datos[i] = rs.getObject(i + 1);
                  }
                  modeloTablaUsers12.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error en agregando filas a la tabla.");
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
+    private void setRowAllUsers(){
+        try{
+            String sentencia = "SELECT userId, username, password, firstName, lastName, accessLevel, mail, phone FROM users";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[7];
+            while(modeloTablaMostrarUsuarios.getRowCount() > 0) {
+                modeloTablaMostrarUsuarios.removeRow(0);
+            }  
+            
+             while(rs.next()){
+                 for (int i = 0; i < 7; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaMostrarUsuarios.addRow(datos);
              }
              rs.close();
          }catch(SQLException ex){
@@ -213,7 +244,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         });
 
         jTable4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable4.setModel(modeloTablaUsers12);
+        jTable4.setModel(modeloTablaMostrarUsuarios);
         jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable4MouseClicked(evt);
