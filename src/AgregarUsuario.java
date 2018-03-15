@@ -37,7 +37,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private String[] getColumnAllUsers(){
         String columna[] = new String[]{"Id","Usuario","contraseña","Nombre","Apellido","Nivel","Email","Telefono"};
-        return columna;
+        return columna; //dkjsfk
     }
     
     private void setRowFailAccess(){
@@ -99,7 +99,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         
                         Object datos[] = new Object[7];
             while(modeloTablaMostrarUsuarios.getRowCount() > 0) {
-                modeloTablaMostrarUsuarios.removeRow(0);
+                modeloTablaMostrarUsuarios.removeRow(0);//jashjabda
             }  
             
              while(rs.next()){
@@ -211,6 +211,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lblHash.setText("Hash");
+
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Nombre de usuario");
 
@@ -710,6 +716,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
             lblLamp2.setForeground(java.awt.Color.black);
         }
     }//GEN-LAST:event_btnApagarActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
 
     /**
      * @param args the command line arguments
