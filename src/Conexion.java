@@ -76,6 +76,27 @@ public class Conexion {
        }
        return true;
    } //Esta parte no se Rehace 
+   
+   public static boolean DeleteUser(String userId ){
+       Statement query;
+       try{
+           query = cone.createStatement();
+       }catch (SQLException ex){
+           
+           System.out.println("error al crear el query!!");
+           return false;
+       }
+       String stat = "DELETE from users WHERE userId = "+userId+";";
+       try{
+           query.execute(stat);
+       }catch (SQLException ex){
+           ex.toString();
+           System.out.println(ex);
+           return false;
+       }
+       return true;
+   }
+   
    public static boolean edificioNuevo(String edificio){
        Statement query; 
        try{

@@ -144,7 +144,6 @@ public class LogIn extends javax.swing.JFrame {
         SecFrameLamp ventanaLamp = new SecFrameLamp();
         String userId =  Conexion.getUserId(user); // El metodo devuelve el id de usuario en String y lo pone en la variable userId
         String accessLevel = Conexion.getAccesslevel(user);
-        
       if(userId.contentEquals("")){ //Si el Id de usuario no devuelve ningun valor se le asigna un 0 a userId, que en la base de datos es un usuario NULL.
           userId = "0";
       } 
