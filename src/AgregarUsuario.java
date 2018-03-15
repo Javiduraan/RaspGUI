@@ -22,32 +22,32 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     
     private String[] getColumnFailAccess(){
-        String columna[] = new String[]{"Id","UserId","Fecha","Tiempo","Detalles"};
+        String columna[] = new String[]{"UserId","Fecha","Tiempo","Detalles"};
         return columna;
     }
     private String[] getColumnUsers(){
-        String columna[] = new String[]{"Id","Usuario","Nombre","Apellido","Nivel","Telefono"};
+        String columna[] = new String[]{"Id","Usuario","Nombre","Apellido","Nivel","Email","Telefono"};
         return columna;
     }
     private String[] getColumnOkAccess(){
-        String columna[] = new String[]{"Id","UserId","Fecha","Hora","Detalles"};
+        String columna[] = new String[]{"UserId","Fecha","Hora","Detalles"};
         return columna;
     }
     
     private void setRowFailAccess(){
         try{
-            String sentencia = "SELECT failAccessLogId, userId, date, time, details FROM failaccesslogs";
+            String sentencia = "SELECT  userId, date, time, details FROM failaccesslogs";
             
                         PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
                         ResultSet rs = sel.executeQuery();
                         
-                        Object datos[] = new Object[5];
+                        Object datos[] = new Object[4];
             while(modeloTabla.getRowCount() > 0) {
                 modeloTabla.removeRow(0);
             }  
             
              while(rs.next()){
-                 for (int i = 0; i < 5; i++){
+                 for (int i = 0; i < 4; i++){
                      datos[i] = rs.getObject(i + 1);
                  }
                  modeloTabla.addRow(datos);
@@ -61,18 +61,18 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private void setRowUsers(){
         try{
-            String sentencia = "SELECT userId, username, firstName, lastName, accessLevel, phone FROM users";
+            String sentencia = "SELECT userId, username, firstName, lastName, accessLevel, mail, phone FROM users";
             
                         PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
                         ResultSet rs = sel.executeQuery();
                         
-                        Object datos[] = new Object[6];
+                        Object datos[] = new Object[7];
             while(modeloTablaUsers12.getRowCount() > 0) {
                 modeloTablaUsers12.removeRow(0);
             }  
             
              while(rs.next()){
-                 for (int i = 0; i < 6; i++){
+                 for (int i = 0; i < 7; i++){
                      datos[i] = rs.getObject(i + 1);
                  }
                  modeloTablaUsers12.addRow(datos);
@@ -86,24 +86,24 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private void setRowOkAccess(){
         try{
-            String sentencia = "SELECT okAccessLogId, userId, date, time, details FROM okaccesslogs";
+            String sentencia = "SELECT  userId, date, time, details FROM okaccesslogs";
             
                         PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
                         ResultSet rs = sel.executeQuery();
                         
-                        Object datos[] = new Object[5];
+                        Object datos[] = new Object[4];
             while(modeloTablaOkAccess12.getRowCount() > 0) {
                 modeloTablaOkAccess12.removeRow(0);
             }               
              while(rs.next()){
-                 for (int i = 0; i < 5; i++){
+                 for (int i = 0; i < 4; i++){
                      datos[i] = rs.getObject(i + 1);
                  }
                  modeloTablaOkAccess12.addRow(datos);
              }
              rs.close();
          }catch(SQLException ex){
-             System.out.println("Error en agregando filas a la tabla.");
+             System.out.println("Error agregando filas a la tabla.");
          }catch(ClassNotFoundException ex){
              System.out.println("Error en el metodo crear Conexion.");
          }
@@ -168,6 +168,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
         RadiobtnLamp2 = new javax.swing.JRadioButton();
         btnEncender = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
+        lblLamp1 = new javax.swing.JLabel();
+        lblLamp2 = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -201,7 +203,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
-        combAccessLvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nivel 0", "Nivel 1" }));
+        combAccessLvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nivel 0", "Nivel 1", "Nivel 2", "Nivel 3" }));
 
         btnAgregaUser.setText("Agregar");
         btnAgregaUser.addActionListener(new java.awt.event.ActionListener() {
@@ -451,9 +453,23 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         btnEncender.setBackground(new java.awt.Color(51, 255, 0));
         btnEncender.setText("Encender ");
+        btnEncender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncenderActionPerformed(evt);
+            }
+        });
 
         btnApagar.setBackground(new java.awt.Color(255, 0, 0));
         btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+
+        lblLamp1.setText("Status");
+
+        lblLamp2.setText("Status");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -467,13 +483,17 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addComponent(btnTemp30))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(RadiobtnLamp1)
                     .addComponent(RadiobtnLamp2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(162, 162, 162)
+                .addGap(46, 46, 46)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLamp1)
+                    .addComponent(lblLamp2))
+                .addGap(67, 67, 67)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEncender))
@@ -497,11 +517,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
                                 .addGap(186, 186, 186)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(RadiobtnLamp1)
-                                    .addComponent(btnEncender))
+                                    .addComponent(btnEncender)
+                                    .addComponent(lblLamp1))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(RadiobtnLamp2)
-                                    .addComponent(btnApagar)))
+                                    .addComponent(btnApagar)
+                                    .addComponent(lblLamp2)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
                                 .addComponent(btnTemp20))))
@@ -632,6 +654,32 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jTable4MouseClicked
 
+    private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
+        if(RadiobtnLamp1.isSelected()){
+            Conexion.lamparas(1,1);
+            lblLamp1.setText("ON");
+            lblLamp1.setForeground(java.awt.Color.green);
+        }
+        if(RadiobtnLamp2.isSelected()){
+            Conexion.lamparas(1,2);
+            lblLamp2.setText("ON");
+            lblLamp2.setForeground(java.awt.Color.green);
+        } 
+    }//GEN-LAST:event_btnEncenderActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        if(RadiobtnLamp1.isSelected()){
+            Conexion.lamparas(0,1);
+            lblLamp1.setText("OFF");
+            lblLamp1.setForeground(java.awt.Color.black);
+        }
+        if(RadiobtnLamp2.isSelected()){
+            Conexion.lamparas(0,2);
+            lblLamp2.setText("OFF");
+            lblLamp2.setForeground(java.awt.Color.black);
+        }
+    }//GEN-LAST:event_btnApagarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -711,6 +759,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JLabel lblHash;
+    private javax.swing.JLabel lblLamp1;
+    private javax.swing.JLabel lblLamp2;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtBuildRoom;
     private javax.swing.JTextField txtEmail;

@@ -20,7 +20,7 @@ import sun.misc.BASE64Encoder;
 
 public class Conexion {
     public static Connection cone = null;
-  public static Connection crear() throws SQLException, ClassNotFoundException { //Metodo para crear la conexion con la base de datos del Raspbrry
+   public static Connection crear() throws SQLException, ClassNotFoundException { //Metodo para crear la conexion con la base de datos del Raspbrry
     if (cone == null) {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Buscamos el driver que vamos a utilizar
@@ -40,7 +40,7 @@ public class Conexion {
            cone = null;
        }
    }
-   public static boolean lamparas(int i, int lamp){
+   public static boolean lamparas(int vLamp, int lamp){
     Statement query;
        try{
          query = cone.createStatement();
@@ -48,11 +48,10 @@ public class Conexion {
            return false;
        }
        //Update 
-       String str = "UPDATE lamparas SET status=" + i + " WHERE idLamp=" + lamp + ";";
+       String str = "UPDATE units SET value=" + vLamp+ " WHERE unitId=" + lamp + ";";
        try{
            query.executeUpdate(str);
        }catch (SQLException ex){
-           //System.out.println(ex.toString());
            return false;
        }
        
@@ -170,10 +169,10 @@ public class Conexion {
        
        return passEncr;
    } //Esto no se Rehace 
-   public static int validarUser(){
+   public static int validarUser(String user, String pass){
        Statement consulta;
-       String user = LogIn.txtUsuario.getText();
-       String pass = LogIn.txtPass.getText();
+       //String user = LogIn.txtUsuario.getText();
+       //String pass = LogIn.txtPass.getText();
        String passEncrypted = Conexion.encriptar(user, pass);
        int resultado=0;
        
@@ -220,6 +219,28 @@ public class Conexion {
        }
        return resul;
    } //TAMPOCO 
+   public static String getAccesslevel(String username){ //Metodo GET que devuelve el nivel de acceso de un usuario basado en su nombre de usuario.
+       Statement consulta;
+       int resultado;
+       String resul= "";
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           return "null";
+       }
+       String SQL = "SELECT accessLevel FROM users WHERE username='"+username+"';";
+       try{
+          ResultSet rs = consulta.executeQuery(SQL);
+          if(rs.next()){
+            resultado = rs.getInt("accessLevel"); 
+           resul = Integer.toString(resultado);
+          }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return "null";
+       }
+       return resul;
+   } 
    public static boolean accessLogFail(String userId, String date, String time, String details){
        Statement consulta;
        try{
