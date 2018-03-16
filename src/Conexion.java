@@ -85,9 +85,17 @@ public class Conexion {
            System.out.println("error al crear el query!!");
            return false;
        }
-       String stat = "DELETE from users WHERE userId = "+userId+";";
+       String stat1 = "DELETE from Reservs WHERE userId = "+userId+";";
+       String stat2 = "DELETE from Hours WHERE userId = "+userId+";";
+       String stat3 = "DELETE from FailAccessLogs WHERE userId = "+userId+";";
+       String stat4 = "DELETE from OkAccessLogs WHERE userId = "+userId+";";
+       String stat5 = "DELETE from users WHERE userId = "+userId+";";
        try{
-           query.execute(stat);
+           query.execute(stat1);
+           query.execute(stat2);
+           query.execute(stat3);
+           query.execute(stat4);
+           query.execute(stat5);
        }catch (SQLException ex){
            ex.toString();
            System.out.println(ex);
