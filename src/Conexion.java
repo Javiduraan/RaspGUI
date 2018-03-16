@@ -19,7 +19,7 @@ import sun.misc.BASE64Encoder;
 
 
 public class Conexion {
-    public static Connection cone = null;
+   public static Connection cone = null;
    public static Connection crear() throws SQLException, ClassNotFoundException { //Metodo para crear la conexion con la base de datos del Raspbrry
     if (cone == null) {
         try {
@@ -76,7 +76,6 @@ public class Conexion {
        }
        return true;
    } //Esta parte no se Rehace 
-   
    public static boolean DeleteUser(String userId ){
        Statement query;
        try{
@@ -96,7 +95,6 @@ public class Conexion {
        }
        return true;
    }
-   
    public static boolean edificioNuevo(String edificio){
        Statement query; 
        try{

@@ -9,6 +9,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTablaUsers12;
     DefaultTableModel modeloTablaOkAccess12;
     DefaultTableModel modeloTablaMostrarUsuarios;
+    DefaultTableModel modeloTablaSingleBoardPC;
     
  
     public AgregarUsuario() {
@@ -16,10 +17,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
         modeloTablaOkAccess12 = new DefaultTableModel(null, getColumnOkAccess());
         modeloTablaMostrarUsuarios = new DefaultTableModel(null, getColumnAllUsers());
+        modeloTablaSingleBoardPC = new DefaultTableModel(null, getColumnSingleBoardPC());
         setRowFailAccess();
         setRowUsers();
         setRowOkAccess();
         setRowAllUsers();
+        setRowSingleBoard();
         initComponents();
     }
     
@@ -34,6 +37,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private String[] getColumnOkAccess(){
         String columna[] = new String[]{"UserId","Fecha","Hora","Detalles"};
         return columna;
+    }
+    private String[] getColumnSingleBoardPC(){
+        String columna[] = new String[]{"SBPid","nombre"};
+        return columna;        
     }
     private String[] getColumnAllUsers(){
         String columna[] = new String[]{"Id","Usuario","contraseña","Nombre","Apellido","Nivel","Email","Telefono"};
@@ -139,6 +146,30 @@ public class AgregarUsuario extends javax.swing.JFrame {
              System.out.println("Error en el metodo crear Conexion.");
          }
     }
+    private void setRowSingleBoard(){
+                try{
+            String statement = "SELECT singleBoardPcId, name FROM SingleBoardsPc";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(statement);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[2];
+            while(modeloTablaSingleBoardPC.getRowCount() > 0) {
+                modeloTablaSingleBoardPC.removeRow(0);
+            }               
+             while(rs.next()){
+                 for (int i = 0; i < 2; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaSingleBoardPC.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error agregando filas a la tabla.");
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,15 +204,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable4 = new javax.swing.JTable();
         btnDeleteUser = new javax.swing.JButton();
         btnReloadTables = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        txtBuild = new javax.swing.JTextField();
-        btnAddBuild = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtclassRoom = new javax.swing.JTextField();
-        btnAddClassRoom = new javax.swing.JButton();
-        txtBuildRoom = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -202,6 +224,21 @@ public class AgregarUsuario extends javax.swing.JFrame {
         btnApagar = new javax.swing.JButton();
         lblLamp1 = new javax.swing.JLabel();
         lblLamp2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        txtBuild = new javax.swing.JTextField();
+        btnAddBuild = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtclassRoom = new javax.swing.JTextField();
+        btnAddClassRoom = new javax.swing.JButton();
+        txtBuildRoom = new javax.swing.JTextField();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -360,82 +397,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(btnReloadTables)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Agregar Usuario", jPanel1);
-
-        jLabel10.setText("Letra de edificio");
-
-        btnAddBuild.setText("Agregar Edificio");
-        btnAddBuild.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddBuildActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setText("Edificio");
-
-        jLabel11.setText("Salon para agregar");
-
-        btnAddClassRoom.setText("Agregar salon");
-        btnAddClassRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddClassRoomActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAddClassRoom)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAddBuild)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(254, 254, 254)
-                                .addComponent(jLabel9))
-                            .addComponent(jLabel11))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtclassRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(txtBuildRoom))
-                        .addGap(59, 59, 59)))
-                .addContainerGap(664, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtBuildRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtclassRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnAddBuild)))
-                .addGap(16, 16, 16)
-                .addComponent(btnAddClassRoom)
-                .addContainerGap(454, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
 
         jTable1.setModel(modeloTabla);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -463,24 +428,24 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(573, 573, 573)
                         .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -582,10 +547,122 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Control Maestro Iluminacion y Temperatura", jPanel5);
+
+        jTable5.setModel(modeloTablaSingleBoardPC);
+        jScrollPane5.setViewportView(jTable5);
+
+        jButton2.setText("Pasar Datos");
+
+        jButton3.setText("Borrar");
+
+        jButton4.setText("Verificar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(241, 241, 241)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(722, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(189, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Dev", jPanel4);
+
+        jLabel10.setText("Letra de edificio");
+
+        btnAddBuild.setText("Agregar Edificio");
+        btnAddBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBuildActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Edificio");
+
+        jLabel11.setText("Salon para agregar");
+
+        btnAddClassRoom.setText("Agregar salon");
+        btnAddClassRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddClassRoomActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAddClassRoom)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnAddBuild)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(254, 254, 254)
+                                .addComponent(jLabel9))
+                            .addComponent(jLabel11))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtclassRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(txtBuildRoom))
+                        .addGap(59, 59, 59)))
+                .addContainerGap(664, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtBuildRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtclassRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnAddBuild)))
+                .addGap(16, 16, 16)
+                .addComponent(btnAddClassRoom)
+                .addContainerGap(485, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
 
         btnback.setText("Volver");
         btnback.addActionListener(new java.awt.event.ActionListener() {
@@ -598,25 +675,26 @@ public class AgregarUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnback)
-                .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblHash)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1387, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnback)
+                .addGap(50, 50, 50))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnback)
-                .addGap(5, 5, 5)
-                .addComponent(lblHash)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lblHash))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnback)))
                 .addContainerGap())
         );
 
@@ -628,12 +706,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
       venCont.setVisible(true);
       this.dispose();
     }//GEN-LAST:event_btnbackActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setRowFailAccess();
-        setRowUsers();
-        setRowOkAccess();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnAddClassRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassRoomActionPerformed
         String build = txtBuildRoom.getText();
@@ -657,6 +729,84 @@ public class AgregarUsuario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Edificio agregado");
     }//GEN-LAST:event_btnAddBuildActionPerformed
 
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        if(RadiobtnLamp1.isSelected()){
+            Conexion.lamparas(0,1);
+            lblLamp1.setText("OFF");
+            lblLamp1.setForeground(java.awt.Color.black);
+        }
+        if(RadiobtnLamp2.isSelected()){
+            Conexion.lamparas(0,2);
+            lblLamp2.setText("OFF");
+            lblLamp2.setForeground(java.awt.Color.black);
+        }
+    }//GEN-LAST:event_btnApagarActionPerformed
+
+    private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
+        if(RadiobtnLamp1.isSelected()){
+            Conexion.lamparas(1,1);
+            lblLamp1.setText("ON");
+            lblLamp1.setForeground(java.awt.Color.green);
+        }
+        if(RadiobtnLamp2.isSelected()){
+            Conexion.lamparas(1,2);
+            lblLamp2.setText("ON");
+            lblLamp2.setForeground(java.awt.Color.green);
+        }
+    }//GEN-LAST:event_btnEncenderActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setRowFailAccess();
+        setRowUsers();
+        setRowOkAccess();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnReloadTablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadTablesActionPerformed
+        setRowAllUsers();
+    }//GEN-LAST:event_btnReloadTablesActionPerformed
+
+    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+
+        String User= txtUsername.getText();
+        String userid = Conexion.getUserId(User);
+        Integer.parseInt(userid);
+
+        Conexion.DeleteUser(userid);
+
+        txtUsername.setText("");
+        txtPasswd.setText("");
+        txtVerifyPasswd.setText("");
+        txtName.setText("");
+        txtLastName.setText("");
+        combAccessLvl.setSelectedItem(0);
+        txtEmail.setText("");
+        txtPhone.setText("");
+        setRowAllUsers();
+
+    }//GEN-LAST:event_btnDeleteUserActionPerformed
+
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        int fila = jTable4.getSelectedRow();
+        if(fila>=0){
+
+            txtUsername.setText(jTable4.getValueAt(fila, 1).toString());
+            txtPasswd.setText(jTable4.getValueAt(fila, 2).toString());
+            txtVerifyPasswd.setText(jTable4.getValueAt(fila, 2).toString());
+            txtName.setText(jTable4.getValueAt(fila, 3).toString());
+            txtLastName.setText(jTable4.getValueAt(fila, 4).toString());
+            //combAccessLvl.setSelectedItem((jTable4.getValueAt(fila, 5).toString();
+                combAccessLvl.setSelectedIndex(Integer.parseInt(jTable4.getValueAt(fila, 5).toString()));
+                txtEmail.setText(jTable4.getValueAt(fila, 6).toString());
+                txtPhone.setText(jTable4.getValueAt(fila, 7).toString());
+                //jButton1.setEnabled(false);
+                //jButton6.setEnabled(true);
+                //jButton2.setEnabled(true);   jButton4.setEnabled(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }
+    }//GEN-LAST:event_jTable4MouseClicked
+
     private void btnAgregaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregaUserActionPerformed
         String NewUser= txtUsername.getText();
         String DESCipher = txtPasswd.getText();
@@ -676,91 +826,16 @@ public class AgregarUsuario extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Contraseña no Verificada!");
         }
-        
+
     }//GEN-LAST:event_btnAgregaUserActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
 
     }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
-    
-        
-        String User= txtUsername.getText();
-        String userid = Conexion.getUserId(User);
-        Integer.parseInt(userid);
-        
-        Conexion.DeleteUser(userid);
-        
-        
-        txtUsername.setText("");
-        txtPasswd.setText("");
-        txtVerifyPasswd.setText("");
-        txtName.setText("");
-        txtLastName.setText("");
-        combAccessLvl.setSelectedItem(0);
-        txtEmail.setText("");
-        txtPhone.setText("");
-        setRowAllUsers();
-        
-        
-    }//GEN-LAST:event_btnDeleteUserActionPerformed
-
-    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
-       int fila = jTable4.getSelectedRow();
-    if(fila>=0){
-       
-        txtUsername.setText(jTable4.getValueAt(fila, 1).toString());
-        txtPasswd.setText(jTable4.getValueAt(fila, 2).toString());
-        txtVerifyPasswd.setText(jTable4.getValueAt(fila, 2).toString());
-        txtName.setText(jTable4.getValueAt(fila, 3).toString());
-        txtLastName.setText(jTable4.getValueAt(fila, 4).toString());
-        //combAccessLvl.setSelectedItem((jTable4.getValueAt(fila, 5).toString();
-        combAccessLvl.setSelectedIndex(Integer.parseInt(jTable4.getValueAt(fila, 5).toString()));
-        txtEmail.setText(jTable4.getValueAt(fila, 6).toString());
-        txtPhone.setText(jTable4.getValueAt(fila, 7).toString());
-        //jButton1.setEnabled(false);
-        //jButton6.setEnabled(true);
-        //jButton2.setEnabled(true);   jButton4.setEnabled(true);
-    }
-    else{
-    JOptionPane.showMessageDialog(null, "Fila no seleccionada");
-    }
-    }//GEN-LAST:event_jTable4MouseClicked
-
-    private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
-        if(RadiobtnLamp1.isSelected()){
-            Conexion.lamparas(1,1);
-            lblLamp1.setText("ON");
-            lblLamp1.setForeground(java.awt.Color.green);
-        }
-        if(RadiobtnLamp2.isSelected()){
-            Conexion.lamparas(1,2);
-            lblLamp2.setText("ON");
-            lblLamp2.setForeground(java.awt.Color.green);
-        } 
-    }//GEN-LAST:event_btnEncenderActionPerformed
-
-    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        if(RadiobtnLamp1.isSelected()){
-            Conexion.lamparas(0,1);
-            lblLamp1.setText("OFF");
-            lblLamp1.setForeground(java.awt.Color.black);
-        }
-        if(RadiobtnLamp2.isSelected()){
-            Conexion.lamparas(0,2);
-            lblLamp2.setText("OFF");
-            lblLamp2.setForeground(java.awt.Color.black);
-        }
-    }//GEN-LAST:event_btnApagarActionPerformed
-
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
-
-    private void btnReloadTablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadTablesActionPerformed
-        setRowAllUsers();
-    }//GEN-LAST:event_btnReloadTablesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -814,6 +889,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -830,17 +908,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable5;
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
