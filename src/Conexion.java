@@ -20,6 +20,7 @@ import sun.misc.BASE64Encoder;
 
 public class Conexion {
    public static Connection cone = null;
+   public static Connection conectorGetinf = null;
    public static Connection crear() throws SQLException, ClassNotFoundException { //Metodo para crear la conexion con la base de datos del Raspbrry
     if (cone == null) {
         try {
@@ -33,6 +34,19 @@ public class Conexion {
             }
     }
     return cone;
+   }
+   public static Connection crearConexionGetInf() throws SQLException, ClassNotFoundException {
+       if (conectorGetinf == null){
+           try {
+               Class.forName("com.mysql.jdbc.Driver");
+               conectorGetinf = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--getinf","JAVARD-SL--MASTERUSER","clave");
+           } catch (SQLException ex){
+               throw new SQLException(ex);
+           } catch (ClassNotFoundException ex){
+               throw new ClassCastException(ex.getMessage());
+           }
+       }
+      return conectorGetinf;
    }
    public static void cerrar() throws SQLException { //metodo para cerrar la conexion 
        if (cone != null) {
@@ -302,4 +316,23 @@ public class Conexion {
        }
        return true;
    } //Esto tampoco se cambia esta chido
+   public static int verifyAccessSBP(){ //Verificar tabla access en base de datos javard-sl--getinf esta vacia.
+       Statement consulta;
+       int resultado = 0;
+       try{
+         consulta = conectorGetinf.createStatement();
+       }catch(SQLException ex){
+           return resultado; 
+       }
+       String SQL = "SELECT * FROM access WHERE  accessId= '1';";
+       try{
+           ResultSet rs = consulta.executeQuery(SQL);
+           if(rs.next()){
+               return resultado + 1;
+           }
+       }catch(SQLException ex){
+           return resultado; 
+       }
+       return resultado;
+   }
 }

@@ -2,6 +2,8 @@
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AgregarUsuario extends javax.swing.JFrame {
    
@@ -229,7 +231,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable5 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnVerifySBP = new javax.swing.JButton();
+        lblStatus = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtBuild = new javax.swing.JTextField();
@@ -559,7 +562,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jButton3.setText("Borrar");
 
-        jButton4.setText("Verificar");
+        btnVerifySBP.setText("Verificar");
+        btnVerifySBP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerifySBPActionPerformed(evt);
+            }
+        });
+
+        lblStatus.setText("Status");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -568,12 +578,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(241, 241, 241)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(722, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblStatus)
+                        .addComponent(btnVerifySBP)))
+                .addContainerGap(937, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,10 +594,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnVerifySBP)
+                        .addGap(52, 52, 52)
+                        .addComponent(lblStatus))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(189, Short.MAX_VALUE))
         );
@@ -800,7 +814,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 txtPhone.setText(jTable4.getValueAt(fila, 7).toString());
                 //jButton1.setEnabled(false);
                 //jButton6.setEnabled(true);
-                //jButton2.setEnabled(true);   jButton4.setEnabled(true);
+                //jButton2.setEnabled(true);  jButton4.setEnabled(true);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Fila no seleccionada");
@@ -836,6 +850,19 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void btnVerifySBPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifySBPActionPerformed
+        try {
+            Conexion.crearConexionGetInf();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(Conexion.verifyAccessSBP()== 0){
+          lblStatus.setText("La tabla esta vacia.");
+       }else lblStatus.setText("La tabla tiene datos.");
+    }//GEN-LAST:event_btnVerifySBPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -886,12 +913,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnTemp20;
     private javax.swing.JButton btnTemp25;
     private javax.swing.JButton btnTemp30;
+    private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -925,6 +952,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtBuildRoom;
     private javax.swing.JTextField txtEmail;
