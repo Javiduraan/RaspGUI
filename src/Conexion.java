@@ -335,4 +335,13 @@ public class Conexion {
        }
        return resultado;
    }
+   public static boolean comparacionTablaGetInf(){
+       Statement consulta; 
+       try{
+          consulta = conectorGetinf.createStatement();
+       }catch(SQLException ex){
+           return false; 
+       }
+      
+   }
 }

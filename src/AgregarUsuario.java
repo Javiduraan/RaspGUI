@@ -862,6 +862,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
         if(Conexion.verifyAccessSBP()== 0){
           lblStatus.setText("La tabla esta vacia.");
        }else lblStatus.setText("La tabla tiene datos.");
+        
+        
     }//GEN-LAST:event_btnVerifySBPActionPerformed
 
     /**
