@@ -117,6 +117,26 @@ public class Conexion {
        }
        return true;
    }
+   public static boolean EditUser(String id, String username, String passwd, String firstName, String LastName, int accesslvl, String eMail, String Phone ){
+       Statement query;
+       try{
+           query = cone.createStatement();
+       }catch (SQLException ex){
+           
+           System.out.println("error al crear el query!!");
+           return false;
+       }
+       String stat = "UPDATE Users SET username='"+username+"', password='"+passwd+"', firstName='"+firstName+"', lastName='"+LastName+"', accessLevel="+accesslvl+", mail='"+eMail+"', phone='"+Phone+"' WHERE userId = "+id+";";
+       try{
+           query.execute(stat);
+       }catch (SQLException ex){
+           ex.toString();
+           System.out.println(ex);
+           return false;
+       }
+       return true;
+   }
+   
    public static boolean edificioNuevo(String edificio){
        Statement query; 
        try{
@@ -342,6 +362,7 @@ public class Conexion {
        }catch(SQLException ex){
            return false; 
        }
+       return false;
       
    }
 }

@@ -206,6 +206,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable4 = new javax.swing.JTable();
         btnDeleteUser = new javax.swing.JButton();
         btnReloadTables = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -313,6 +314,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setText("Actualizar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -346,7 +354,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(btnAgregaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(161, 161, 161)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdate)
+                .addGap(64, 64, 64)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnReloadTables)
@@ -396,7 +406,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
                                 .addGap(48, 48, 48)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnAgregaUser)
-                                    .addComponent(btnDeleteUser)))))
+                                    .addComponent(btnDeleteUser)
+                                    .addComponent(btnUpdate)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(btnReloadTables)))
@@ -866,6 +877,27 @@ public class AgregarUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnVerifySBPActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        String User= txtUsername.getText();
+        String passwd = txtPasswd.getText();
+        String VerifyPasswd = txtVerifyPasswd.getText();
+        String firstName = txtName.getText();
+        String lastName = txtLastName.getText();
+        int  accessLevel = combAccessLvl.getSelectedIndex();
+        String mail = txtEmail.getText();
+        String phone = txtPhone.getText();
+        
+        String userid = Conexion.getUserId(User);
+        //int userIDed = Integer.parseInt(userid);
+        
+        if(VerifyPasswd.equals(passwd)){
+            String PassEncrypted = Conexion.encriptar(User, passwd);
+        
+        Conexion.EditUser(userid, User, PassEncrypted, firstName, lastName, accessLevel, mail, phone);
+        setRowAllUsers();
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -915,6 +947,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnTemp20;
     private javax.swing.JButton btnTemp25;
     private javax.swing.JButton btnTemp30;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> combAccessLvl;
