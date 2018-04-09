@@ -356,13 +356,46 @@ public class Conexion {
        return resultado;
    }
    public static boolean comparacionTablaGetInf(){
-       Statement consulta; 
+       Statement consulta, consulta2; 
        try{
           consulta = conectorGetinf.createStatement();
+          consulta2 = cone.createStatement();
        }catch(SQLException ex){
+           System.out.println(ex.toString());
            return false; 
        }
-       return false;
-      
+       String SQL = "SELECT * FROM access WHERE A = 'JAVARD-SL--RBP3001' AND B = 'clave' AND C = 'localhost' AND D = 'JAVARD-SL--Master';";
+       String SQL2 = "SELECT * FROM singleboardspc WHERE username ='JAVARD-SL--RBP3001' AND password = 'clave' AND hostname = 'localhost' AND singleboardspc.database = 'JAVARD-SL--Master';";
+       try{
+        ResultSet rs = consulta.executeQuery(SQL);  
+        ResultSet rs2 = consulta2.executeQuery(SQL2);
+        if(rs.next() && rs2.next()){
+            return true;
+        }else{
+            return false;
+        }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+           
+       }       
    }
+   public static boolean pasarDatosEntreTablas(){
+       Statement consulta; 
+       String resul = "";
+       try{
+           consulta = cone.createStatement(); 
+       }catch(SQLException ex){
+           return false;
+       }
+       String SQL = "SELECT * FROM singleboardspc WHERE SingleBoardsPcId = 1; " ; 
+       try{
+           ResultSet rs = consulta.executeQuery(SQL);
+           if(rs.next()){
+             resul = rs.getString("username");
+           }
+       }catch(SQLException ex){
+           
+       }
+   }   
 }
