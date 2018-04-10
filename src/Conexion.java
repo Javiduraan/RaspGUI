@@ -381,21 +381,43 @@ public class Conexion {
        }       
    }
    public static boolean pasarDatosEntreTablas(){
-       Statement consulta; 
-       String resul = "";
+       Statement consulta, consulta2; 
+       String resulA = "";
+       String resulB = "";
+       String resulC = "";
+       String resulD = "";
+       
        try{
+           consulta2 = conectorGetinf.createStatement();
            consulta = cone.createStatement(); 
+                 
        }catch(SQLException ex){
+           System.out.println(ex.toString());
            return false;
        }
-       String SQL = "SELECT * FROM singleboardspc WHERE SingleBoardsPcId = 1; " ; 
+       String SQL = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 1; " ; 
        try{
            ResultSet rs = consulta.executeQuery(SQL);
+
            if(rs.next()){
-             resul = rs.getString("username");
-           }
-       }catch(SQLException ex){
+             resulA = rs.getString("username");
+             resulB = rs.getString("password");
+             resulC = rs.getString("hostname");
+             resulD = rs.getString("database");
+           } 
+             String sql = "INSERT INTO access(A,B,C,D) VALUES('"+resulA+"', '" +resulB+ "', '" +resulC+ "', '" +resulD+ "');";
+              try{
+               consulta2.execute(sql);
+              }catch(SQLException ex){
+                  System.out.println(ex.toString());
+                  return false;
+                  
+              }
            
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
        }
+       return true;
    }   
 }

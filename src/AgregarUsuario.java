@@ -230,7 +230,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btnPasarDatos = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnVerifySBP = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
@@ -569,7 +569,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable5.setModel(modeloTablaSingleBoardPC);
         jScrollPane5.setViewportView(jTable5);
 
-        jButton2.setText("Pasar Datos");
+        btnPasarDatos.setText("Pasar Datos");
+        btnPasarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarDatosActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Borrar");
 
@@ -591,7 +596,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
+                    .addComponent(btnPasarDatos)
                     .addComponent(jButton3)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblStatus)
@@ -604,7 +609,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnPasarDatos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -898,6 +903,19 @@ public class AgregarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void btnPasarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarDatosActionPerformed
+        // TODO add your handling code here:
+        try {
+            Conexion.crearConexionGetInf();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Conexion.pasarDatosEntreTablas();
+        
+    }//GEN-LAST:event_btnPasarDatosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -943,6 +961,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnApagar;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEncender;
+    private javax.swing.JButton btnPasarDatos;
     private javax.swing.JButton btnReloadTables;
     private javax.swing.JButton btnTemp20;
     private javax.swing.JButton btnTemp25;
@@ -952,7 +971,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
