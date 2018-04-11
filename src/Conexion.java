@@ -381,37 +381,65 @@ public class Conexion {
        }       
    }
    public static boolean pasarDatosEntreTablas(){
-       Statement consulta, consulta2; 
+       Statement consulta, consulta2, consulta3, consulta4; 
        String resulA = "";
        String resulB = "";
        String resulC = "";
        String resulD = "";
+       String resulE = "";
+       String resulF = "";
+       String resulG = "";
+       String resulH = "";
+       String resulI = "";
+       String resulJ = "";
+       String resulK = "";
+       String resulL = "";
        
        try{
            consulta2 = conectorGetinf.createStatement();
            consulta = cone.createStatement(); 
-                 
+           consulta3 = cone.createStatement();
+           consulta4 = cone.createStatement();
        }catch(SQLException ex){
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 1; " ; 
+       String SQL = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 1;" ;
+       String SQL2 = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 2;" ;
+       String SQL3 = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 3;" ;
        try{
            ResultSet rs = consulta.executeQuery(SQL);
+           ResultSet rs2 = consulta3.executeQuery(SQL2);
+           ResultSet rs3 = consulta4.executeQuery(SQL3);
 
            if(rs.next()){
              resulA = rs.getString("username");
              resulB = rs.getString("password");
              resulC = rs.getString("hostname");
              resulD = rs.getString("database");
-           } 
+           }
+           if(rs2.next()){
+             resulE = rs2.getString("username");
+             resulF = rs2.getString("password");
+             resulG = rs2.getString("hostname");
+             resulH = rs2.getString("database");
+           }
+           if(rs3.next()){
+             resulI = rs3.getString("username");
+             resulJ = rs3.getString("password");
+             resulK = rs3.getString("hostname");
+             resulL = rs3.getString("database");  
+           }
              String sql = "INSERT INTO access(A,B,C,D) VALUES('"+resulA+"', '" +resulB+ "', '" +resulC+ "', '" +resulD+ "');";
+             String sql2 = "INSERT INTO access(A,B,C,D) VALUES('"+resulE+"', '" +resulF+ "', '" +resulG+ "', '" +resulH+ "');";
+             String sql3 = "INSERT INTO access(A,B,C,D) VALUES('"+resulI+"', '" +resulJ+ "', '" +resulK+ "', '" +resulL+ "');";
               try{
                consulta2.execute(sql);
+               consulta2.execute(sql2);
+               consulta2.execute(sql3);
               }catch(SQLException ex){
                   System.out.println(ex.toString());
-                  return false;
-                  
+                  return false;                  
               }
            
        }catch(SQLException ex){
