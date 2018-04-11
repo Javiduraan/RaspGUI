@@ -893,7 +893,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         String phone = txtPhone.getText();
         
         String userid = Conexion.getUserId(User);
-        //int userIDed = Integer.parseInt(userid);
+        Integer.parseInt(userid);
         
         if(VerifyPasswd.equals(passwd)){
             String PassEncrypted = Conexion.encriptar(User, passwd);

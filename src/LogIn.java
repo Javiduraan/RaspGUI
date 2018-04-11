@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -75,6 +76,11 @@ public class LogIn extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
+        btnAceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAceptarKeyPressed(evt);
+            }
+        });
 
         btnEdoServer.setText("Estado del servidor");
         btnEdoServer.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +144,7 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
         String user = txtUsuario.getText();
         String pass = txtPass.getText();
         AdminVen ventanaAdmin = new AdminVen();
@@ -215,6 +222,77 @@ public class LogIn extends javax.swing.JFrame {
             lblEdoServer.setForeground(Color.red);
           }
     }//GEN-LAST:event_btnEdoServerActionPerformed
+
+    private void btnAceptarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAceptarKeyPressed
+      if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        String user = txtUsuario.getText();
+        String pass = txtPass.getText();
+        AdminVen ventanaAdmin = new AdminVen();
+        SecFrameLamp ventanaLamp = new SecFrameLamp();
+        String userId =  Conexion.getUserId(user); // El metodo devuelve el id de usuario en String y lo pone en la variable userId
+        String accessLevel = Conexion.getAccesslevel(user);
+      if(userId.contentEquals("")){ //Si el Id de usuario no devuelve ningun valor se le asigna un 0 a userId, que en la base de datos es un usuario NULL.
+          userId = "0";
+      } 
+ 
+    if(Conexion.cone == null){ //Si no existe la conexion llama al metodo crear que hace la conexion.
+            try {
+                Conexion.crear();
+            } catch (SQLException ex) {
+                Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
+    if(Conexion.validarUser(user, pass)== 1){   //El metodo validar devuelve un 1 si el usuario existe en la base de datos Si no, pues no existe.
+            switch (accessLevel) {
+                case "0":
+                    {
+                        //Si el nivel de usuario es 0 el usuario es un Administrador o un desarrollador.
+                        String detail = "Acceso administrativo/Dev"; //El detalle que ira en el campo detail de la tabla bitacora OkAccessLog
+                        Conexion.okAccessLog(userId, date.toString(), time.toString(), detail); //Llama al metodo okAccessLog que inserta en la bitacora los detalles de el usuario. 
+                        ventanaAdmin.setVisible(true); //Muestra la ventana de administrador. 
+                        this.dispose(); //Cierra esta ventana
+                        break;
+                    }
+                case "1":
+                    {
+                        // Si el nivel de usuario es 1 significa que es un usuario de control de horarios.
+                        String detail = "Acceso de control de horas autorizado";
+                        Conexion.okAccessLog(userId, date.toString(), time.toString(), detail);
+                        ventanaAdmin.setVisible(true);
+                        this.dispose();
+                        break;
+                    }
+                case "2":
+                    {
+                        //Si el nivel de usuario es 2 significa que es un usuario de control de unidades (Luces, A/C).
+                        String detail = "Acceso de control de unidades autorizado";
+                        Conexion.okAccessLog(userId, date.toString(), time.toString(), detail);
+                        ventanaAdmin.setVisible(true);
+                        this.dispose();
+                        break;
+                    }
+                case "3":
+                    {
+                        //Si el nivel de usuario es 3 significa que es un simple mortal que solo quiere llorar. :)
+                        String detail = "Acceso de usuario mortal autorizado";
+                        Conexion.okAccessLog(userId, date.toString(), time.toString(), detail);
+                        ventanaAdmin.setVisible(true);
+                        this.dispose();
+                        break;
+                    }
+                default:
+                    break;
+            }
+    }else{  //Si no se valida el usuario, este genera un registro en la tabla de failaccesslog con el userId inexistente.
+            String detail = "usuario o contraseña incorrecta"; //En esta parte no abre ninguna ventana solo muestra un mensaje de error. 
+            Conexion.accessLogFail(userId, date.toString(), time.toString(), detail);
+            JOptionPane.showMessageDialog(null, detail);
+        }
+      }  
+    }//GEN-LAST:event_btnAceptarKeyPressed
 
     /**
      * @param args the command line arguments
