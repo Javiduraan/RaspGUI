@@ -207,6 +207,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         btnDeleteUser = new javax.swing.JButton();
         btnReloadTables = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        lblUserid = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -328,35 +329,40 @@ public class AgregarUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combAccessLvl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnDeleteUser)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtVerifyPasswd)
-                                    .addComponent(txtPasswd)
-                                    .addComponent(txtUsername)
-                                    .addComponent(txtName)
-                                    .addComponent(txtLastName)
-                                    .addComponent(txtEmail)
-                                    .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnAgregaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdate)
-                .addGap(64, 64, 64)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(combAccessLvl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btnDeleteUser)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtVerifyPasswd)
+                                            .addComponent(txtPasswd)
+                                            .addComponent(txtUsername)
+                                            .addComponent(txtName)
+                                            .addComponent(txtLastName)
+                                            .addComponent(txtEmail)
+                                            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(btnAgregaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(64, 64, 64))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblUserid)
+                        .addGap(151, 151, 151)))
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnReloadTables)
@@ -407,7 +413,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnAgregaUser)
                                     .addComponent(btnDeleteUser)
-                                    .addComponent(btnUpdate)))))
+                                    .addComponent(btnUpdate))
+                                .addGap(70, 70, 70)
+                                .addComponent(lblUserid))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(btnReloadTables)))
@@ -819,6 +827,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         int fila = jTable4.getSelectedRow();
         if(fila>=0){
 
+            lblUserid.setText(jTable4.getValueAt(fila, 0).toString());
             txtUsername.setText(jTable4.getValueAt(fila, 1).toString());
             txtPasswd.setText(jTable4.getValueAt(fila, 2).toString());
             txtVerifyPasswd.setText(jTable4.getValueAt(fila, 2).toString());
@@ -884,6 +893,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         String User= txtUsername.getText();
+        String userid= lblUserid.getText();
         String passwd = txtPasswd.getText();
         String VerifyPasswd = txtVerifyPasswd.getText();
         String firstName = txtName.getText();
@@ -892,7 +902,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         String mail = txtEmail.getText();
         String phone = txtPhone.getText();
         
-        String userid = Conexion.getUserId(User);
+       // String userid = Conexion.getUserId(User);
         Integer.parseInt(userid);
         
         if(VerifyPasswd.equals(passwd)){
@@ -1006,6 +1016,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblUserid;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtBuildRoom;
     private javax.swing.JTextField txtEmail;
