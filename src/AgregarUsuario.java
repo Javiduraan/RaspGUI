@@ -12,7 +12,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTablaOkAccess12;
     DefaultTableModel modeloTablaMostrarUsuarios;
     DefaultTableModel modeloTablaSingleBoardPC;
-    
+    DefaultTableModel modeloTablaMostrarRooms;
  
     public AgregarUsuario() {
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
@@ -20,12 +20,15 @@ public class AgregarUsuario extends javax.swing.JFrame {
         modeloTablaOkAccess12 = new DefaultTableModel(null, getColumnOkAccess());
         modeloTablaMostrarUsuarios = new DefaultTableModel(null, getColumnAllUsers());
         modeloTablaSingleBoardPC = new DefaultTableModel(null, getColumnSingleBoardPC());
+        modeloTablaMostrarRooms = new DefaultTableModel(null, getColumnRooms());
         setRowFailAccess();
         setRowUsers();
         setRowOkAccess();
         setRowAllUsers();
         setRowSingleBoard();
+        setRowRooms();
         initComponents();
+        
     }
     
     private String[] getColumnFailAccess(){
@@ -47,6 +50,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private String[] getColumnAllUsers(){
         String columna[] = new String[]{"Id","Usuario","contraseña","Nombre","Apellido","Nivel","Email","Telefono"};
         return columna; //dkjsfk
+    }
+    private String[] getColumnRooms(){
+        String columna[] = new String[]{"Id","Id de Edificio","nombre de Salon","Temperatura minima","Temperatura media","Temperatura maxima","Temperatura seleccionada","modo"};
+        return columna; 
     }
     
     private void setRowFailAccess(){
@@ -172,6 +179,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
              System.out.println("Error en el metodo crear Conexion.");
          }
     }
+    private void setRowRooms(){
+        try{
+            String sentencia = "SELECT * FROM Rooms";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[8];
+            while(modeloTablaMostrarRooms.getRowCount() > 0) {
+                modeloTablaMostrarRooms.removeRow(0);//jashjabda
+            }  
+            
+             while(rs.next()){
+                 for (int i = 0; i < 8; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaMostrarRooms.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error en agregando filas a la tabla.");
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,6 +276,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
         txtclassRoom = new javax.swing.JTextField();
         btnAddClassRoom = new javax.swing.JButton();
         txtBuildRoom = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txtminTemp = new javax.swing.JTextField();
+        txtmidTemp = new javax.swing.JTextField();
+        txtmaxTemp = new javax.swing.JTextField();
+        txtselTemp = new javax.swing.JTextField();
+        txtmode = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
+        btnDeleteRoms = new javax.swing.JButton();
+        lblbuild = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -294,6 +340,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jTable4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable4.setModel(modeloTablaMostrarUsuarios);
+        jTable4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable4MouseClicked(evt);
@@ -419,7 +466,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(btnReloadTables)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Agregar Usuario", jPanel1);
@@ -569,7 +616,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Control Maestro Iluminacion y Temperatura", jPanel5);
@@ -625,7 +672,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addComponent(lblStatus))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dev", jPanel4);
@@ -650,32 +697,80 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setText("Temperatura minima");
+
+        jLabel15.setText("Temperatura maxima");
+
+        jLabel16.setText("Temperatura media");
+
+        jLabel17.setText("Temperatura seleccionada");
+
+        jLabel18.setText("modo");
+
+        txtminTemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtminTempActionPerformed(evt);
+            }
+        });
+
+        jTable6.setModel(modeloTablaMostrarRooms);
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTable6);
+
+        btnDeleteRoms.setText("Eliminar salon");
+        btnDeleteRoms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteRomsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAddClassRoom)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAddBuild)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(254, 254, 254)
-                                .addComponent(jLabel9))
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18))
                         .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtclassRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(txtBuildRoom))
-                        .addGap(59, 59, 59)))
-                .addContainerGap(664, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtminTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtclassRoom, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuildRoom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(txtmidTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtmaxTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtselTemp)
+                            .addComponent(txtmode, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnAddBuild)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnAddClassRoom)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDeleteRoms)
+                                .addGap(56, 56, 56)
+                                .addComponent(lblbuild)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,21 +778,52 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtBuildRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnAddBuild)
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(txtBuildRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtclassRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)))
+                            .addComponent(jLabel11))
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(txtminTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(txtmidTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtmaxTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtselTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(txtmode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnAddBuild)))
-                .addGap(16, 16, 16)
-                .addComponent(btnAddClassRoom)
-                .addContainerGap(485, Short.MAX_VALUE))
+                        .addGap(4, 4, 4)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAddClassRoom)
+                            .addComponent(btnDeleteRoms))
+                        .addGap(138, 138, 138))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblbuild)
+                        .addGap(124, 124, 124))))
         );
 
         jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
@@ -748,12 +874,24 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void btnAddClassRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClassRoomActionPerformed
         String build = txtBuildRoom.getText();
         String classRoom = txtclassRoom.getText();
-
+        String minTemp = txtminTemp.getText();
+        String midTemp = txtmidTemp.getText();
+        String maxTemp = txtmaxTemp.getText();
+        String selTemp = txtselTemp.getText();
+        String mode= txtmode.getText();
+        Integer.parseInt(minTemp);
+        Integer.parseInt(midTemp);
+        Integer.parseInt(maxTemp);
+        Integer.parseInt(selTemp);
+        Integer.parseInt(mode);
+        
         String buildID =Conexion.getBuildId(build);
+        
         if (buildID.contentEquals("catch 2")) {
             JOptionPane.showMessageDialog(null, "no se agrego el edificio");
         }else  {
-            Conexion.newClassRoom(buildID, classRoom);
+            Conexion.newClassRoom(buildID, classRoom, minTemp, midTemp, maxTemp, selTemp, mode);
+            setRowRooms();
             JOptionPane.showMessageDialog(null, "se agrego el salon");
         }
 
@@ -834,9 +972,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
             txtName.setText(jTable4.getValueAt(fila, 3).toString());
             txtLastName.setText(jTable4.getValueAt(fila, 4).toString());
             //combAccessLvl.setSelectedItem((jTable4.getValueAt(fila, 5).toString();
-                combAccessLvl.setSelectedIndex(Integer.parseInt(jTable4.getValueAt(fila, 5).toString()));
-                txtEmail.setText(jTable4.getValueAt(fila, 6).toString());
-                txtPhone.setText(jTable4.getValueAt(fila, 7).toString());
+            combAccessLvl.setSelectedIndex(Integer.parseInt(jTable4.getValueAt(fila, 5).toString()));
+            txtEmail.setText(jTable4.getValueAt(fila, 6).toString());
+            txtPhone.setText(jTable4.getValueAt(fila, 7).toString());
                 //jButton1.setEnabled(false);
                 //jButton6.setEnabled(true);
                 //jButton2.setEnabled(true);  jButton4.setEnabled(true);
@@ -926,6 +1064,46 @@ public class AgregarUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnPasarDatosActionPerformed
 
+    private void txtminTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtminTempActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtminTempActionPerformed
+
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        int fila = jTable6.getSelectedRow();
+        if(fila>=0){
+
+            txtBuildRoom.setText(jTable6.getValueAt(fila, 1).toString());
+            txtclassRoom.setText(jTable6.getValueAt(fila, 2).toString());
+            txtminTemp.setText(jTable6.getValueAt(fila, 3).toString());
+            txtmidTemp.setText(jTable6.getValueAt(fila, 4).toString());
+            txtmaxTemp.setText(jTable6.getValueAt(fila, 5).toString());
+            txtselTemp.setText(jTable6.getValueAt(fila, 6).toString());
+            txtmode.setText(jTable6.getValueAt(fila, 7).toString());
+          
+            
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }
+    }//GEN-LAST:event_jTable6MouseClicked
+
+    private void btnDeleteRomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRomsActionPerformed
+        String build= txtBuildRoom.getText();
+        String buildId = Conexion.getRoomId(build);
+        Integer.parseInt(buildId);
+
+        Conexion.DeleteClassRomm(buildId);
+
+            txtBuildRoom.setText("");
+            txtclassRoom.setText("");
+            txtminTemp.setText("");
+            txtmidTemp.setText("");
+            txtmaxTemp.setText("");
+            txtselTemp.setText("");
+            txtmode.setText("");
+            setRowAllUsers();
+    }//GEN-LAST:event_btnDeleteRomsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -969,6 +1147,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAddClassRoom;
     private javax.swing.JButton btnAgregaUser;
     private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnDeleteRoms;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEncender;
     private javax.swing.JButton btnPasarDatos;
@@ -987,6 +1166,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1006,17 +1190,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable6;
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUserid;
+    private javax.swing.JLabel lblbuild;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtBuildRoom;
     private javax.swing.JTextField txtEmail;
@@ -1027,5 +1214,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     private javax.swing.JPasswordField txtVerifyPasswd;
     private javax.swing.JTextField txtclassRoom;
+    private javax.swing.JTextField txtmaxTemp;
+    private javax.swing.JTextField txtmidTemp;
+    private javax.swing.JTextField txtminTemp;
+    private javax.swing.JTextField txtmode;
+    private javax.swing.JTextField txtselTemp;
     // End of variables declaration//GEN-END:variables
 }

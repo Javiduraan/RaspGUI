@@ -152,14 +152,14 @@ public class Conexion {
        }
        return true;
    } //Esta parte tampoco se Rehace
-   public static boolean newClassRoom (String BuildId, String classRoom){
+   public static boolean newClassRoom (String BuildId, String classRoom, String minTemp, String midTemp, String maxTemp, String selTemp, String mode){
        Statement query; 
        try{
            query = cone.createStatement();
        }catch(SQLException ex){
            return false; 
        }
-       String insert = "INSERT INTO Rooms(buildingId, name) Values ('"+BuildId+"', '"+classRoom+"');";
+       String insert = "INSERT INTO Rooms(buildingId, name, minTemp, midTemp, maxTemp, selTemp, mode) Values ('"+BuildId+"', '"+classRoom+"', "+minTemp+", "+midTemp+", "+maxTemp+", "+selTemp+", "+mode+");";
        try{
            query.execute(insert);
        }catch(SQLException ex){
@@ -169,6 +169,29 @@ public class Conexion {
        return true;
        
    } //Esta PARTE SI SE REHACE, GRACIAS DANIEL.
+  public static boolean DeleteClassRomm(String roomid ){
+       Statement query;
+       try{
+           query = cone.createStatement();
+       }catch (SQLException ex){
+           
+           System.out.println("error al crear el query!!");
+           return false;
+       }
+       String stat1 = "DELETE from RoomsUnitsRels WHERE userId = "+roomid+";";
+       String stat2 = "DELETE from Hours WHERE roomId = "+roomid+";";
+       String stat3 = "DELETE from Rooms WHERE userId = "+roomid+";";
+       try{
+           query.execute(stat1);
+           query.execute(stat2);
+           query.execute(stat3);
+       }catch (SQLException ex){
+           ex.toString();
+           System.out.println(ex);
+           return false;
+       }
+       return true;
+   }
    public static String getBuildId(String name){ 
        Statement query;
        int resultado;
@@ -280,6 +303,28 @@ public class Conexion {
        }
        return resul;
    } //TAMPOCO 
+   public static String getRoomId (String room){
+       Statement consulta;
+        int resultado;
+       String resul= "";
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           return "Error creando statement";
+       }
+       String SQL = "SELECT roomId FROM Rooms WHERE name='"+room+"';";
+       try{
+          ResultSet rs = consulta.executeQuery(SQL);
+          if(rs.next()){
+            resultado = rs.getInt("roomId"); 
+           resul = Integer.toString(resultado);
+          }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return "Error al hacer la consulta";
+       }
+       return resul;
+   }
    public static String getAccesslevel(String username){ //Metodo GET que devuelve el nivel de acceso de un usuario basado en su nombre de usuario.
        Statement consulta;
        int resultado;
