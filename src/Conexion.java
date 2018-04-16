@@ -178,9 +178,9 @@ public class Conexion {
            System.out.println("error al crear el query!!");
            return false;
        }
-       String stat1 = "DELETE from RoomsUnitsRels WHERE userId = "+roomid+";";
+       String stat1 = "DELETE from RoomsUnitsRels WHERE roomId = "+roomid+";";
        String stat2 = "DELETE from Hours WHERE roomId = "+roomid+";";
-       String stat3 = "DELETE from Rooms WHERE userId = "+roomid+";";
+       String stat3 = "DELETE from Rooms WHERE roomId = "+roomid+";";
        try{
            query.execute(stat1);
            query.execute(stat2);

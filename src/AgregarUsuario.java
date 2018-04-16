@@ -1088,11 +1088,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable6MouseClicked
 
     private void btnDeleteRomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRomsActionPerformed
-        String build= txtBuildRoom.getText();
-        String buildId = Conexion.getRoomId(build);
-        Integer.parseInt(buildId);
+        String room= txtclassRoom.getText();
+        String roomId = Conexion.getRoomId(room);
+        Integer.parseInt(roomId);
 
-        Conexion.DeleteClassRomm(buildId);
+        Conexion.DeleteClassRomm(roomId); 
 
             txtBuildRoom.setText("");
             txtclassRoom.setText("");
@@ -1101,7 +1101,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
             txtmaxTemp.setText("");
             txtselTemp.setText("");
             txtmode.setText("");
-            setRowAllUsers();
+            setRowRooms();
     }//GEN-LAST:event_btnDeleteRomsActionPerformed
 
     /**
