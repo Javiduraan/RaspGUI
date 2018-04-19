@@ -13,7 +13,57 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTablaMostrarUsuarios;
     DefaultTableModel modeloTablaSingleBoardPC;
     DefaultTableModel modeloTablaMostrarRooms;
- 
+    DefaultTableModel modeloTablaReservs;
+    
+        public void cargarUsersCombBox() throws SQLException{
+       Statement consulta;
+       int X = 0;
+       consulta = Conexion.cone.createStatement();
+       String SQL = "SELECT username FROM Users;";
+       try{
+           ResultSet rs = consulta.executeQuery(SQL);
+           cmbUser.removeAllItems();
+           while(rs.next()){
+               cmbUser.addItem(rs.getString(1));
+              
+           }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+       }   
+   
+    }
+        public void cargarBuildingCombBox() throws SQLException{
+       Statement consulta;
+       consulta = Conexion.cone.createStatement();
+       String SQL = "SELECT name FROM Buildings;";
+       try{
+           ResultSet rs = consulta.executeQuery(SQL);
+           cmbBuilding.removeAllItems();
+           while(rs.next()){
+               cmbBuilding.addItem(rs.getString(1));
+              
+           }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+       }   
+   
+    }
+          public void cargarRoomsCombBox() throws SQLException{
+       Statement consulta;
+       consulta = Conexion.cone.createStatement();
+       String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuilding.getSelectedItem().toString()+"');";
+       try{
+           ResultSet rs = consulta.executeQuery(SQL);
+           cmbRoom.removeAllItems();
+           while(rs.next()){
+               cmbRoom.addItem(rs.getString(1));
+              
+           }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+       }   
+   
+    }
     public AgregarUsuario() {
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
@@ -21,14 +71,22 @@ public class AgregarUsuario extends javax.swing.JFrame {
         modeloTablaMostrarUsuarios = new DefaultTableModel(null, getColumnAllUsers());
         modeloTablaSingleBoardPC = new DefaultTableModel(null, getColumnSingleBoardPC());
         modeloTablaMostrarRooms = new DefaultTableModel(null, getColumnRooms());
+        modeloTablaReservs = new DefaultTableModel(null, getColumnReservas());
         setRowFailAccess();
         setRowUsers();
         setRowOkAccess();
         setRowAllUsers();
         setRowSingleBoard();
         setRowRooms();
+        setRowReservs();
         initComponents();
-        
+        try {
+            cargarUsersCombBox();
+            cargarBuildingCombBox();
+            cargarRoomsCombBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private String[] getColumnFailAccess(){
@@ -55,6 +113,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         String columna[] = new String[]{"Id","Id de Edificio","nombre de Salon","Temperatura minima","Temperatura media","Temperatura maxima","Temperatura seleccionada","modo"};
         return columna; 
     }
+     private String[] getColumnReservas(){
+        String columna[] = new String[]{"ID usuario","ID Salon","Fecha","Hora y dia","Caso"};
+        return columna;
+    } 
     
     private void setRowFailAccess(){
         try{
@@ -204,6 +266,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
              System.out.println("Error en el metodo crear Conexion.");
          }
     }
+    private void setRowReservs(){
+                try{
+            String statement = "SELECT userId, roomId, date, weekDayAndHour, reservs.case FROM reservs";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(statement);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[5];
+            while(modeloTablaReservs.getRowCount() > 0) {
+                modeloTablaReservs.removeRow(0);
+            }               
+             while(rs.next()){
+                 for (int i = 0; i < 5; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaReservs.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error agregando filas a la tabla.");
+                    System.out.println(ex.toString());
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -290,6 +377,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable6 = new javax.swing.JTable();
         btnDeleteRoms = new javax.swing.JButton();
         lblbuild = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable7 = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel19 = new javax.swing.JLabel();
+        cmbUser = new javax.swing.JComboBox<>();
+        cmbBuilding = new javax.swing.JComboBox<>();
+        cmbRoom = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jCalendarCombo1 = new org.freixas.jcalendar.JCalendarCombo();
+        jLabel23 = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -828,6 +929,94 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
 
+        jTable7.setModel(modeloTablaReservs);
+        jScrollPane7.setViewportView(jTable7);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel19.setText("Reservas");
+
+        cmbBuilding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBuildingActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Usuario que hara la reserva:");
+
+        jLabel21.setText("Edificio donde esta el salón:");
+
+        jLabel22.setText("Salon que se va a reservar:");
+
+        jButton2.setText("Recargar Tabla");
+
+        jLabel23.setText("Dia:");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(44, 44, 44)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(277, 277, 277)
+                        .addComponent(jLabel19)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jCalendarCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(cmbBuilding, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbRoom, 0, 100, Short.MAX_VALUE))
+                        .addGap(190, 190, 190))))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel19)
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCalendarCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23))))
+                .addContainerGap(133, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Reservas", jPanel6);
+
         btnback.setText("Volver");
         btnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1104,6 +1293,15 @@ public class AgregarUsuario extends javax.swing.JFrame {
             setRowRooms();
     }//GEN-LAST:event_btnDeleteRomsActionPerformed
 
+    private void cmbBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBuildingActionPerformed
+        // TODO add your handling code here:
+        try {
+            cargarRoomsCombBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cmbBuildingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1158,9 +1356,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
+    private javax.swing.JComboBox<String> cmbBuilding;
+    private javax.swing.JComboBox<String> cmbRoom;
+    private javax.swing.JComboBox<String> cmbUser;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private org.freixas.jcalendar.JCalendarCombo jCalendarCombo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1171,7 +1374,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1184,6 +1392,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1191,6 +1400,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
@@ -1198,6 +1409,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
+    private javax.swing.JTable jTable7;
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
