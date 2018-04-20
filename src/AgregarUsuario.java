@@ -113,7 +113,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         return columna; //dkjsfk
     }
     private String[] getColumnRooms(){
-        String columna[] = new String[]{"Id","Id de Edificio","nombre de Salon","Temperatura minima","Temperatura media","Temperatura maxima","Temperatura seleccionada","modo"};
+        String columna[] = new String[]{"Id","Edificio","nombre de Salon","Temperatura minima","Temperatura media","Temperatura maxima","Temperatura seleccionada","modo"};
         return columna; 
     }
      private String[] getColumnReservas(){
@@ -250,7 +250,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private void setRowRooms(){
         try{
-            String sentencia = "SELECT * FROM Rooms";
+            String sentencia = "SELECT Rooms.roomId, buildings.name, Rooms.name, Rooms.minTemp, Rooms.midTemp, Rooms.maxTemp, Rooms.selTemp, Rooms.mode FROM Rooms, buildings WHERE buildings.buildingId=rooms.buildingId";
             
                         PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
                         ResultSet rs = sel.executeQuery();
@@ -409,6 +409,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable6 = new javax.swing.JTable();
         btnDeleteRoms = new javax.swing.JButton();
         lblbuild = new javax.swing.JLabel();
+        btnUpdateRoom = new javax.swing.JButton();
+        lblroomid = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable7 = new javax.swing.JTable();
@@ -870,6 +872,15 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnUpdateRoom.setText("Editar Salon");
+        btnUpdateRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateRoomActionPerformed(evt);
+            }
+        });
+
+        lblroomid.setText("jLabel27");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -878,24 +889,27 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtminTemp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtclassRoom, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuildRoom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(txtmidTemp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtmaxTemp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtselTemp)
-                            .addComponent(txtmode, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel18))
+                                .addGap(32, 32, 32)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtminTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtclassRoom, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtBuildRoom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                    .addComponent(txtmidTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtmaxTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtselTemp)
+                                    .addComponent(txtmode, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(lblroomid))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 943, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -910,9 +924,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
                                 .addComponent(btnAddClassRoom)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnDeleteRoms)
-                                .addGap(56, 56, 56)
-                                .addComponent(lblbuild)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addComponent(lblbuild))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnUpdateRoom)))))
+                        .addContainerGap(1034, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -925,7 +944,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(btnAddBuild)
-                        .addGap(53, 53, 53)
+                        .addGap(26, 26, 26)
+                        .addComponent(lblroomid)
+                        .addGap(11, 11, 11)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(txtBuildRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -961,7 +982,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddClassRoom)
-                            .addComponent(btnDeleteRoms))
+                            .addComponent(btnDeleteRoms)
+                            .addComponent(btnUpdateRoom))
                         .addGap(138, 138, 138))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(lblbuild)
@@ -1361,7 +1383,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
         int fila = jTable6.getSelectedRow();
         if(fila>=0){
-
+            lblroomid.setText(jTable6.getValueAt(fila,0).toString());
+            lblroomid.setVisible(false);
             txtBuildRoom.setText(jTable6.getValueAt(fila, 1).toString());
             txtclassRoom.setText(jTable6.getValueAt(fila, 2).toString());
             txtminTemp.setText(jTable6.getValueAt(fila, 3).toString());
@@ -1406,6 +1429,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnUpdateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateRoomActionPerformed
+        String roomid = lblroomid.getText();
+        String build = txtBuildRoom.getText();
+        String name = txtclassRoom.getText();
+        String minTemp = txtminTemp.getText();
+        String midTemp = txtmidTemp.getText();
+        String maxTemp = txtmaxTemp.getText();
+        String selTemp = txtselTemp.getText();
+        String mode= txtmode.getText();
+        Integer.parseInt(roomid);
+        
+        Integer.parseInt(minTemp);
+        Integer.parseInt(midTemp);
+        Integer.parseInt(maxTemp);
+        Integer.parseInt(selTemp);
+        Integer.parseInt(mode); 
+        
+        String buildID =Conexion.getBuildId(build);
+        Integer.parseInt(buildID);
+        
+        
+        Conexion.EditRoom(roomid, buildID, name, minTemp, midTemp, maxTemp, selTemp, mode);
+        setRowRooms();
+    }//GEN-LAST:event_btnUpdateRoomActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1460,6 +1508,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnTemp25;
     private javax.swing.JButton btnTemp30;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdateRoom;
     private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> cmbBuilding;
@@ -1530,6 +1579,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUserid;
     private javax.swing.JLabel lblbuild;
+    private javax.swing.JLabel lblroomid;
     private javax.swing.JTextField txtBuild;
     private javax.swing.JTextField txtBuildRoom;
     private javax.swing.JTextField txtEmail;

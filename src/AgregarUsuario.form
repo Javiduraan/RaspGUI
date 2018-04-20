@@ -744,26 +744,31 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="txtminTemp" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtclassRoom" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtBuildRoom" alignment="0" pref="105" max="32767" attributes="0"/>
+                                          <Component id="txtmidTemp" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtmaxTemp" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtselTemp" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtmode" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="lblroomid" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtminTemp" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtclassRoom" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtBuildRoom" alignment="0" pref="105" max="32767" attributes="0"/>
-                                  <Component id="txtmidTemp" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtmaxTemp" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtselTemp" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="txtmode" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="102" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jScrollPane6" min="-2" pref="943" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                           </Group>
@@ -781,11 +786,19 @@
                                       <Component id="btnAddClassRoom" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btnDeleteRoms" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                      <Component id="lblbuild" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                              <Component id="lblbuild" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="btnUpdateRoom" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="1034" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -803,7 +816,9 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="btnAddBuild" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="lblroomid" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtBuildRoom" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -850,6 +865,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btnAddClassRoom" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnDeleteRoms" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnUpdateRoom" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                           </Group>
@@ -966,6 +982,19 @@
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblbuild">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnUpdateRoom">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar Salon"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateRoomActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblroomid">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jLabel27"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

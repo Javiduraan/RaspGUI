@@ -192,6 +192,25 @@ public class Conexion {
        }
        return true;
    }
+   public static boolean EditRoom(String roomid, String buildingId, String name, String minTemp, String midTemp, String maxTemp, String selTemp, String mode ){
+       Statement query;
+       try{
+           query = cone.createStatement();
+       }catch (SQLException ex){
+           
+           System.out.println("error al crear el query!!");
+           return false;
+       }
+       String stat = "UPDATE Rooms SET buildingId="+buildingId+", name='"+name+"', minTemp="+minTemp+", midTemp="+midTemp+", maxTemp="+maxTemp+", selTemp="+selTemp+", mode="+mode+" WHERE roomId = "+roomid+";";
+       try{
+           query.execute(stat);
+       }catch (SQLException ex){
+           ex.toString();
+           System.out.println(ex);
+           return false;
+       }
+       return true;
+   }
    public static String getBuildId(String name){ 
        Statement query;
        int resultado;
