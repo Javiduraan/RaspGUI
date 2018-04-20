@@ -169,7 +169,7 @@ public class Conexion {
        return true;
        
    } //Esta PARTE SI SE REHACE, GRACIAS DANIEL.
-  public static boolean DeleteClassRomm(String roomid ){
+   public static boolean DeleteClassRomm(String roomid ){
        Statement query;
        try{
            query = cone.createStatement();

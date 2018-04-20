@@ -14,6 +14,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTablaSingleBoardPC;
     DefaultTableModel modeloTablaMostrarRooms;
     DefaultTableModel modeloTablaReservs;
+    DefaultTableModel modeloTablaHours;
     
         public void cargarUsersCombBox() throws SQLException{
        Statement consulta;
@@ -48,7 +49,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
-          public void cargarRoomsCombBox() throws SQLException{
+        public void cargarRoomsCombBox() throws SQLException{
        Statement consulta;
        consulta = Conexion.cone.createStatement();
        String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuilding.getSelectedItem().toString()+"');";
@@ -64,7 +65,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
-    public AgregarUsuario() {
+     public AgregarUsuario() {
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
         modeloTablaOkAccess12 = new DefaultTableModel(null, getColumnOkAccess());
@@ -72,6 +73,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         modeloTablaSingleBoardPC = new DefaultTableModel(null, getColumnSingleBoardPC());
         modeloTablaMostrarRooms = new DefaultTableModel(null, getColumnRooms());
         modeloTablaReservs = new DefaultTableModel(null, getColumnReservas());
+        modeloTablaHours = new DefaultTableModel(null, getColumnHours());
         setRowFailAccess();
         setRowUsers();
         setRowOkAccess();
@@ -79,6 +81,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         setRowSingleBoard();
         setRowRooms();
         setRowReservs();
+        setRowHours();
         initComponents();
         try {
             cargarUsersCombBox();
@@ -117,6 +120,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         String columna[] = new String[]{"ID usuario","ID Salon","Fecha","Hora y dia","Caso"};
         return columna;
     } 
+     private String[] getColumnHours(){
+         String columna[] = new String[]{"Nombre","Apellido","Salon","Hora y dia"};
+         return columna;
+     }
     
     private void setRowFailAccess(){
         try{
@@ -291,6 +298,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
              System.out.println("Error en el metodo crear Conexion.");
          }
     }
+    private void setRowHours(){
+                      try{
+            String statement = "SELECT Users.firstName, Users.lastName, Rooms.name, Hours.weekDayAndHour FROM Hours, Users, Rooms WHERE Users.userId = Hours.userId AND Rooms.roomId = Hours.roomId;";
+            
+                        PreparedStatement sel = Conexion.crear().prepareStatement(statement);
+                        ResultSet rs = sel.executeQuery();
+                        
+                        Object datos[] = new Object[4];
+            while(modeloTablaHours.getRowCount() > 0) {
+                modeloTablaHours.removeRow(0);
+            }               
+             while(rs.next()){
+                 for (int i = 0; i < 4; i++){
+                     datos[i] = rs.getObject(i + 1);
+                 }
+                 modeloTablaHours.addRow(datos);
+             }
+             rs.close();
+         }catch(SQLException ex){
+             System.out.println("Error agregando filas a la tabla.");
+                    System.out.println(ex.toString());
+         }catch(ClassNotFoundException ex){
+             System.out.println("Error en el metodo crear Conexion.");
+         }  
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -389,8 +421,17 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jCalendarCombo1 = new org.freixas.jcalendar.JCalendarCombo();
+        jcalendarCmb = new org.freixas.jcalendar.JCalendarCombo();
         jLabel23 = new javax.swing.JLabel();
+        cmbHora = new javax.swing.JComboBox<>();
+        jLabel24 = new javax.swing.JLabel();
+        btnReservar = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable8 = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel26 = new javax.swing.JLabel();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -952,6 +993,17 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel23.setText("Dia:");
 
+        cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+
+        jLabel24.setText("Hora:");
+
+        btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -964,58 +1016,107 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(277, 277, 277)
-                        .addComponent(jLabel19)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(37, 37, 37)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jCalendarCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(cmbBuilding, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbRoom, 0, 100, Short.MAX_VALUE))
-                        .addGap(190, 190, 190))))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnReservar)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jcalendarCmb, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                    .addComponent(cmbBuilding, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbRoom, 0, 100, Short.MAX_VALUE))))
+                        .addGap(190, 190, 190))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(277, 277, 277)
+                        .addComponent(jLabel19)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel19)
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCalendarCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23))))
+                .addGap(67, 67, 67)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jButton2)
                 .addContainerGap(133, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel19)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcalendarCmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReservar)
+                .addGap(100, 100, 100))
         );
 
         jTabbedPane1.addTab("Reservas", jPanel6);
+
+        jTable8.setModel(modeloTablaHours);
+        jScrollPane8.setViewportView(jTable8);
+
+        jLabel25.setText("Edicion de Horarios");
+
+        jLabel26.setText("Nombre");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                .addComponent(jLabel26)
+                .addGap(64, 64, 64)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(370, 370, 370))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel25)
+                .addGap(420, 420, 420))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel25)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26))
+                .addContainerGap(210, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Horarios", jPanel7);
 
         btnback.setText("Volver");
         btnback.addActionListener(new java.awt.event.ActionListener() {
@@ -1302,6 +1403,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbBuildingActionPerformed
 
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReservarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1350,6 +1455,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnEncender;
     private javax.swing.JButton btnPasarDatos;
     private javax.swing.JButton btnReloadTables;
+    private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnTemp20;
     private javax.swing.JButton btnTemp25;
     private javax.swing.JButton btnTemp30;
@@ -1357,13 +1463,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> cmbBuilding;
+    private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbRoom;
     private javax.swing.JComboBox<String> cmbUser;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private org.freixas.jcalendar.JCalendarCombo jCalendarCombo1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1380,6 +1487,9 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1393,6 +1503,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1401,6 +1512,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
@@ -1410,6 +1522,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
+    private javax.swing.JTable jTable8;
+    private org.freixas.jcalendar.JCalendarCombo jcalendarCmb;
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
