@@ -16,7 +16,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTablaReservs;
     DefaultTableModel modeloTablaHours;
     
-        public void cargarUsersCombBox() throws SQLException{
+        public void cargarUsersCombBoxTabReservs() throws SQLException{
        Statement consulta;
        int X = 0;
        consulta = Conexion.cone.createStatement();
@@ -33,7 +33,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
-        public void cargarBuildingCombBox() throws SQLException{
+        public void cargarBuildingCombBoxTabReservs() throws SQLException{
        Statement consulta;
        consulta = Conexion.cone.createStatement();
        String SQL = "SELECT name FROM Buildings;";
@@ -49,7 +49,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
-        public void cargarRoomsCombBox() throws SQLException{
+        public void cargarRoomsCombBoxTabReservs() throws SQLException{
        Statement consulta;
        consulta = Conexion.cone.createStatement();
        String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuilding.getSelectedItem().toString()+"');";
@@ -65,6 +65,36 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
+        public void cargarBuildingCombBoxTabHours() throws SQLException{
+          Statement consulta;
+          consulta = Conexion.cone.createStatement();
+           String SQL = "SELECT name FROM Buildings;";
+           try{
+           ResultSet rs = consulta.executeQuery(SQL);
+           cmbBuildingTabHours.removeAllItems();
+           while(rs.next()){
+               cmbBuildingTabHours.addItem(rs.getString(1));
+              
+           }
+          }catch(SQLException ex){
+           System.out.println(ex.toString());
+           }       
+        }
+        public void cargarRoomsCombBoxTabHours() throws SQLException{
+          Statement consulta;
+          consulta = Conexion.cone.createStatement();
+          String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuildingTabHours.getSelectedItem().toString()+"');";
+           try{
+             ResultSet rs = consulta.executeQuery(SQL);
+             cmbRoomTabHours.removeAllItems();
+             while(rs.next()){
+               cmbRoomTabHours.addItem(rs.getString(1));
+              
+               }
+           }catch(SQLException ex){
+           System.out.println(ex.toString());
+            }  
+        }
      public AgregarUsuario() {
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
@@ -84,9 +114,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
         setRowHours();
         initComponents();
         try {
-            cargarUsersCombBox();
-            cargarBuildingCombBox();
-            cargarRoomsCombBox();
+            cargarUsersCombBoxTabReservs();
+            cargarBuildingCombBoxTabReservs();
+            cargarRoomsCombBoxTabReservs();
+            cargarBuildingCombBoxTabHours();
+            cargarRoomsCombBoxTabHours();
         } catch (SQLException ex) {
             Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -434,6 +466,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        cmbBuildingTabHours = new javax.swing.JComboBox<>();
+        jLabel28 = new javax.swing.JLabel();
+        cmbRoomTabHours = new javax.swing.JComboBox<>();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -1108,22 +1144,37 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel26.setText("Nombre");
 
+        jLabel27.setText("Edificio");
+
+        cmbBuildingTabHours.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBuildingTabHoursActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setText("Salon");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
-                .addComponent(jLabel26)
-                .addGap(64, 64, 64)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 367, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbBuildingTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, 60, Short.MAX_VALUE)
+                            .addComponent(cmbRoomTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(370, 370, 370))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel25)
-                .addGap(420, 420, 420))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1133,8 +1184,18 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(cmbBuildingTabHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28)
+                            .addComponent(cmbRoomTabHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(210, Short.MAX_VALUE))
         );
 
@@ -1420,7 +1481,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void cmbBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBuildingActionPerformed
         // TODO add your handling code here:
         try {
-            cargarRoomsCombBox();
+            cargarRoomsCombBoxTabReservs();
         } catch (SQLException ex) {
             Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1454,6 +1515,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
         Conexion.EditRoom(roomid, buildID, name, minTemp, midTemp, maxTemp, selTemp, mode);
         setRowRooms();
     }//GEN-LAST:event_btnUpdateRoomActionPerformed
+
+    private void cmbBuildingTabHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBuildingTabHoursActionPerformed
+        try {
+            cargarRoomsCombBoxTabHours();
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }    }//GEN-LAST:event_cmbBuildingTabHoursActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1512,8 +1580,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
     private javax.swing.JComboBox<String> cmbBuilding;
+    private javax.swing.JComboBox<String> cmbBuildingTabHours;
     private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbRoom;
+    private javax.swing.JComboBox<String> cmbRoomTabHours;
     private javax.swing.JComboBox<String> cmbUser;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
@@ -1539,6 +1609,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
