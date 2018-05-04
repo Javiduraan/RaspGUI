@@ -2,6 +2,7 @@
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,6 +96,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
            System.out.println(ex.toString());
             }  
         }
+        public void cargarUsersNameCombBoxTabHours() throws SQLException{
+        Statement consulta;
+        consulta = Conexion.cone.createStatement();
+        String SQL = "SELECT firstName FROM Users;";
+           try{
+             ResultSet rs = consulta.executeQuery(SQL);
+             cmbFirstNameTabHours.removeAllItems();
+             while(rs.next()){
+               cmbFirstNameTabHours.addItem(rs.getString(1));
+              }
+            }catch(SQLException ex){
+               System.out.println(ex.toString());
+              } 
+        }
      public AgregarUsuario() {
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
@@ -119,6 +134,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
             cargarRoomsCombBoxTabReservs();
             cargarBuildingCombBoxTabHours();
             cargarRoomsCombBoxTabHours();
+            cargarUsersNameCombBoxTabHours();
         } catch (SQLException ex) {
             Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -365,6 +381,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         lblHash = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -464,12 +481,22 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
         jLabel25 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbFirstNameTabHours = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         cmbBuildingTabHours = new javax.swing.JComboBox<>();
         jLabel28 = new javax.swing.JLabel();
         cmbRoomTabHours = new javax.swing.JComboBox<>();
+        lblPrueba = new javax.swing.JLabel();
+        btnPrueba = new javax.swing.JButton();
+        btnAceptarHours = new javax.swing.JButton();
+        chkbLunes = new javax.swing.JCheckBox();
+        chkbMartes = new javax.swing.JCheckBox();
+        chkbMiercoles = new javax.swing.JCheckBox();
+        chkbJueves = new javax.swing.JCheckBox();
+        chkbViernes = new javax.swing.JCheckBox();
+        chkbSabado = new javax.swing.JCheckBox();
+        cmbHorarioHora = new javax.swing.JComboBox<>();
         btnback = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -1154,6 +1181,36 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel28.setText("Salon");
 
+        lblPrueba.setText("jLabel29");
+
+        btnPrueba.setText("jButton4");
+        btnPrueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPruebaActionPerformed(evt);
+            }
+        });
+
+        btnAceptarHours.setText("Aceptar");
+
+        chkbLunes.setText("Lunes");
+
+        chkbMartes.setText("Martes");
+
+        chkbMiercoles.setText("Miercoles");
+
+        chkbJueves.setText("Jueves");
+
+        chkbViernes.setText("Viernes");
+
+        chkbSabado.setText("Sabado");
+        chkbSabado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkbSabadoActionPerformed(evt);
+            }
+        });
+
+        cmbHorarioHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1161,32 +1218,53 @@ public class AgregarUsuario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 367, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(btnPrueba)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                                .addComponent(lblPrueba)
+                                .addGap(581, 581, 581))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(255, 255, 255)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbHorarioHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAceptarHours))
+                                .addContainerGap(437, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbBuildingTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, 60, Short.MAX_VALUE)
-                            .addComponent(cmbRoomTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(370, 370, 370))
+                            .addComponent(jLabel25)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(44, 44, 44)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbBuildingTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbFirstNameTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbRoomTabHours, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(72, 72, 72)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkbLunes)
+                            .addComponent(chkbMartes)
+                            .addComponent(chkbMiercoles)
+                            .addComponent(chkbJueves)
+                            .addComponent(chkbViernes)
+                            .addComponent(chkbSabado))
+                        .addGap(548, 548, 548))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel25)
-                .addGap(18, 18, 18)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbFirstNameTabHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel26))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1195,8 +1273,33 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel28)
-                            .addComponent(cmbRoomTabHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(210, Short.MAX_VALUE))
+                            .addComponent(cmbRoomTabHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(342, 342, 342)
+                        .addComponent(btnPrueba))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(268, 268, 268)
+                                .addComponent(btnAceptarHours))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(chkbLunes)
+                                    .addComponent(cmbHorarioHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkbMartes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkbMiercoles)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkbJueves)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkbViernes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chkbSabado)))
+                        .addGap(16, 16, 16)
+                        .addComponent(lblPrueba)))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Horarios", jPanel7);
@@ -1523,6 +1626,29 @@ public class AgregarUsuario extends javax.swing.JFrame {
             Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }    }//GEN-LAST:event_cmbBuildingTabHoursActionPerformed
 
+    private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
+        LinkedList lista;  
+      lista = Conexion.getDataTableHours();
+      // int ListaInt = Integer.parseInt(lista.toString());
+//      String XXE = Conexion.metodoDiaHoraToString(prueba);
+      int longuitud = lista.size();
+      for(int i = 0; i < longuitud; i++){
+          //int j = (int) lista.get(i);
+          System.out.println("Deb:" + Conexion.metodoDiaHoraToString((int)lista.get(i)));
+      }
+       lblPrueba.setText(lista.toString());
+    }//GEN-LAST:event_btnPruebaActionPerformed
+
+    private void chkbSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkbSabadoActionPerformed
+        String Status = "";
+        if(chkbLunes.isSelected()){Status = "Lu";}
+        if(chkbMartes.isSelected()){Status = "Ma";}
+        if(chkbMiercoles.isSelected()){Status = "Mi";}
+        if(chkbJueves.isSelected()){Status = "Ju";}
+        if(chkbViernes.isSelected()){Status = "Vi";}
+        if(chkbSabado.isSelected()){Status = "Sa";}
+    }//GEN-LAST:event_chkbSabadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1562,6 +1688,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton RadiobtnLamp1;
     private javax.swing.JRadioButton RadiobtnLamp2;
+    private javax.swing.JButton btnAceptarHours;
     private javax.swing.JButton btnAddBuild;
     private javax.swing.JButton btnAddClassRoom;
     private javax.swing.JButton btnAgregaUser;
@@ -1570,6 +1697,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEncender;
     private javax.swing.JButton btnPasarDatos;
+    private javax.swing.JButton btnPrueba;
     private javax.swing.JButton btnReloadTables;
     private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnTemp20;
@@ -1579,9 +1707,18 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdateRoom;
     private javax.swing.JButton btnVerifySBP;
     private javax.swing.JButton btnback;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox chkbJueves;
+    private javax.swing.JCheckBox chkbLunes;
+    private javax.swing.JCheckBox chkbMartes;
+    private javax.swing.JCheckBox chkbMiercoles;
+    private javax.swing.JCheckBox chkbSabado;
+    private javax.swing.JCheckBox chkbViernes;
     private javax.swing.JComboBox<String> cmbBuilding;
     private javax.swing.JComboBox<String> cmbBuildingTabHours;
+    private javax.swing.JComboBox<String> cmbFirstNameTabHours;
     private javax.swing.JComboBox<String> cmbHora;
+    private javax.swing.JComboBox<String> cmbHorarioHora;
     private javax.swing.JComboBox<String> cmbRoom;
     private javax.swing.JComboBox<String> cmbRoomTabHours;
     private javax.swing.JComboBox<String> cmbUser;
@@ -1589,7 +1726,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1648,6 +1784,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
+    private javax.swing.JLabel lblPrueba;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUserid;
     private javax.swing.JLabel lblbuild;

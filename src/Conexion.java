@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -511,5 +512,90 @@ public class Conexion {
            return false;
        }
        return true;
-   }   
+   }  
+   public static LinkedList getDataTableHours(){
+   Statement consulta;
+       LinkedList lista = new LinkedList();
+//   int resultado = 0;
+    try{
+        consulta = cone.createStatement();
+    }catch(SQLException ex){
+        System.out.println(ex.toString());
+        return null;
+    }
+    String SQL = "SELECT * FROM Hours;";
+     try{
+        ResultSet rs = consulta.executeQuery(SQL);
+        while(rs.next()){
+//         resultado = rs.getInt("weekDayAndHour");
+         lista.add(rs.getInt("weekDayAndHour"));
+        }
+     }catch(SQLException ex){
+         return null; 
+     }
+     return lista;
+   }
+   public static String metodoDiaHoraToString(int weekDayAndHourValue){
+        //Lunes
+        if(weekDayAndHourValue >= 0 && weekDayAndHourValue <= 23)
+            if(String.valueOf(weekDayAndHourValue).length() == 1)
+                return "Lu0" + String.valueOf(weekDayAndHourValue);
+            else
+                return "Lu" + String.valueOf(weekDayAndHourValue);
+        //Martes
+        if(weekDayAndHourValue >= 24 && weekDayAndHourValue <= 47)
+            if(String.valueOf(weekDayAndHourValue - 24).length() == 1)
+                return "Ma0" + String.valueOf(weekDayAndHourValue - 24);
+            else
+                return "Ma" + String.valueOf(weekDayAndHourValue - 24);
+        //Miercoles
+        if(weekDayAndHourValue >= 48 && weekDayAndHourValue <= 71)
+            if(String.valueOf(weekDayAndHourValue - 48).length() == 1)
+                return "Mi0" + String.valueOf(weekDayAndHourValue - 48);
+            else
+                return "Mi" + String.valueOf(weekDayAndHourValue - 48);
+        //Jueves
+        if(weekDayAndHourValue >= 72 && weekDayAndHourValue <= 95)
+            if(String.valueOf(weekDayAndHourValue - 72).length() == 1)
+                return "Ju0" + String.valueOf(weekDayAndHourValue - 72);
+            else
+                return "Ju" + String.valueOf(weekDayAndHourValue - 72);
+        //Viernes
+        if(weekDayAndHourValue >= 96 && weekDayAndHourValue <= 119)
+            if(String.valueOf(weekDayAndHourValue - 96).length() == 1)
+                return "Vi0" + String.valueOf(weekDayAndHourValue - 96);
+            else
+                return "Vi" + String.valueOf(weekDayAndHourValue - 96);
+        //Sabado
+        if(weekDayAndHourValue >= 120 && weekDayAndHourValue <= 143)
+            if(String.valueOf(weekDayAndHourValue - 120).length() == 1)
+                return "Sa0" + String.valueOf(weekDayAndHourValue - 120);
+            else
+                return "Sa" + String.valueOf(weekDayAndHourValue - 120);
+        //Domingo
+        if(weekDayAndHourValue >= 144 && weekDayAndHourValue <= 167)
+            if(String.valueOf(weekDayAndHourValue - 144).length() == 1)
+                return "Do0" + String.valueOf(weekDayAndHourValue - 144);
+            else
+                return "Do" + String.valueOf(weekDayAndHourValue - 144);
+        //Error
+        return "NU00";
+    }
+   public static boolean addHours(int userId, int RoomId, int weekDayAndHourValue){
+       Statement consulta;
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       String SQL = "INSERT INTO Hours VALUES (" + userId + ", " + RoomId + ", " + weekDayAndHourValue + ");";
+       try{
+           consulta.executeQuery(SQL);
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       return true;
+   }
 }
