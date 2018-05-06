@@ -1191,6 +1191,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
         });
 
         btnAceptarHours.setText("Aceptar");
+        btnAceptarHours.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarHoursActionPerformed(evt);
+            }
+        });
 
         chkbLunes.setText("Lunes");
 
@@ -1648,6 +1653,26 @@ public class AgregarUsuario extends javax.swing.JFrame {
         if(chkbViernes.isSelected()){Status = "Vi";}
         if(chkbSabado.isSelected()){Status = "Sa";}
     }//GEN-LAST:event_chkbSabadoActionPerformed
+
+    private void btnAceptarHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarHoursActionPerformed
+        String name = (String) cmbFirstNameTabHours.getSelectedItem();
+        String build = (String) cmbBuildingTabHours.getSelectedItem();
+        String room = (String) cmbRoomTabHours.getSelectedItem();
+        boolean lunes=chkbLunes.isSelected();
+        boolean martes=chkbMartes.isSelected();
+        boolean miercoles=chkbMiercoles.isSelected();
+        boolean jueves=chkbJueves.isSelected();
+        boolean viernes=chkbViernes.isSelected();
+        boolean sabado=chkbSabado.isSelected();
+        int hora=cmbHorarioHora.getSelectedIndex();
+        
+        String userId= Conexion.getUserId(name);
+        String Buildid= Conexion.getBuildId(build);
+        String roomid = Conexion.getRoomId(room);
+        
+        
+        Conexion.addHours(userId, roomid, hora);
+    }//GEN-LAST:event_btnAceptarHoursActionPerformed
 
     /**
      * @param args the command line arguments

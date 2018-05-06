@@ -581,7 +581,7 @@ public class Conexion {
         //Error
         return "NU00";
     }
-   public static boolean addHours(int userId, int RoomId, int weekDayAndHourValue){
+   public static boolean addHours(String userId, String RoomId, int weekDayAndHourValue){
        Statement consulta;
        try{
          consulta = cone.createStatement();
