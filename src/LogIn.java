@@ -1,5 +1,7 @@
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
@@ -21,9 +23,11 @@ import java.util.logging.Logger;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import sun.misc.BASE64Encoder;
@@ -45,6 +49,7 @@ public class LogIn extends javax.swing.JFrame {
 
     public LogIn() {
         initComponents();
+        setLocationRelativeTo(null);
         ServerStatus();
     }
     
@@ -81,10 +86,8 @@ public class LogIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Global");
         setBackground(new java.awt.Color(255, 255, 255));
-        setLocationByPlatform(true);
         setMaximumSize(new java.awt.Dimension(300, 400));
         setMinimumSize(new java.awt.Dimension(300, 400));
-        setPreferredSize(new java.awt.Dimension(300, 400));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -131,7 +134,7 @@ public class LogIn extends javax.swing.JFrame {
 
         btnAceptar.setBackground(new java.awt.Color(204, 0, 0));
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar.setText("Iniciar Sesión");
+        btnAceptar.setText("INICIAR SESION");
         btnAceptar.setMaximumSize(new java.awt.Dimension(210, 25));
         btnAceptar.setMinimumSize(new java.awt.Dimension(210, 25));
         btnAceptar.setPreferredSize(new java.awt.Dimension(210, 25));
@@ -477,23 +480,15 @@ public class LogIn extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            com.jtattoo.plaf.acryl.AcrylLookAndFeel.setTheme("Red", "INSERT YOUR LICENSE KEY HERE", "Company");
+            //JFrame.setDefaultLookAndFeelDecorated(true);
+            //ubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.CremeSkin");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+        } catch (Exception e) {
         }
         //</editor-fold>
 
+      
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -518,7 +513,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblEdoServer;
     private customComponents.logoJavard logoJavard1;
-    private javax.swing.JPasswordField txtPass;
-    private javax.swing.JTextField txtUsuario;
+    public static javax.swing.JPasswordField txtPass;
+    public static javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
