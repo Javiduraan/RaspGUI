@@ -100,7 +100,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         public void cargarUsersNameCombBoxTabHours() throws SQLException{
         Statement consulta;
         consulta = Conexion.cone.createStatement();
-        String SQL = "SELECT firstName FROM Users;";
+        String SQL = "SELECT username FROM Users WHERE userid != 0;";
            try{
              ResultSet rs = consulta.executeQuery(SQL);
              cmbFirstNameTabHours.removeAllItems();
@@ -1771,33 +1771,152 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPruebaActionPerformed
 
     private void chkbSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkbSabadoActionPerformed
-        String Status = "";
-        if(chkbLunes.isSelected()){Status = "Lu";}
-        if(chkbMartes.isSelected()){Status = "Ma";}
-        if(chkbMiercoles.isSelected()){Status = "Mi";}
-        if(chkbJueves.isSelected()){Status = "Ju";}
-        if(chkbViernes.isSelected()){Status = "Vi";}
-        if(chkbSabado.isSelected()){Status = "Sa";}
+
     }//GEN-LAST:event_chkbSabadoActionPerformed
 
     private void btnAceptarHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarHoursActionPerformed
         String name = (String) cmbFirstNameTabHours.getSelectedItem();
         String build = (String) cmbBuildingTabHours.getSelectedItem();
         String room = (String) cmbRoomTabHours.getSelectedItem();
+        String Status = "";
         boolean lunes=chkbLunes.isSelected();
         boolean martes=chkbMartes.isSelected();
         boolean miercoles=chkbMiercoles.isSelected();
         boolean jueves=chkbJueves.isSelected();
         boolean viernes=chkbViernes.isSelected();
         boolean sabado=chkbSabado.isSelected();
-        int hora=cmbHorarioHora.getSelectedIndex();
-        
+        int hora= Integer.parseInt(cmbHorarioHora.getSelectedItem().toString());
         String userId= Conexion.getUserId(name);
-        String Buildid= Conexion.getBuildId(build);
-        String roomid = Conexion.getRoomId(room);
+        String buildId= Conexion.getBuildId(build);
+        String roomId = Conexion.getRoomId(room);
         
         
-        Conexion.addHours(userId, roomid, hora);
+        
+        String sout = "" + hora;
+        String cero = "0";
+        String mix = "00";
+
+        if(lunes){
+        Status = "Lu";
+          if(hora<=9){
+             mix = cero + sout;
+             int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+mix);
+             if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                 JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");
+              }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour);  
+              } 
+           }else{
+              int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+hora);
+               if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");  
+               }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour); 
+               JOptionPane.showMessageDialog(null,"Hora añadida con exito.");                  
+               }
+            }
+        }
+        if(martes){
+            Status = "Ma";
+            if(hora<=9){
+                mix = cero + sout;
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+mix);
+             if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                 JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");
+              }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour);  
+              }
+            }else{
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+hora);
+               if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");  
+               }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour); 
+               JOptionPane.showMessageDialog(null,"Hora añadida con exito.");                  
+               }
+            }
+        }
+        if(miercoles){
+          Status = "Mi";
+            if(hora<=9){
+                mix = cero + sout;
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+mix);
+             if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                 JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");
+              }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour);  
+              }
+            }else{
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+hora);
+               if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");  
+               }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour); 
+               JOptionPane.showMessageDialog(null,"Hora añadida con exito.");                  
+               }
+            }  
+        }
+        if(jueves){
+           Status = "Ju";
+            if(hora<=9){
+                mix = cero + sout;
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+mix);
+             if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                 JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");
+              }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour);  
+              }
+            }else{
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+hora);
+               if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");  
+               }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour); 
+               JOptionPane.showMessageDialog(null,"Hora añadida con exito.");                  
+               }
+            }
+        }
+        if(viernes){
+          Status = "Vi";
+            if(hora<=9){
+                mix = cero + sout;
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+mix);
+             if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                 JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");
+             }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour);  
+              }
+            }else{
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+hora);
+               if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");  
+               }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour); 
+               JOptionPane.showMessageDialog(null,"Hora añadida con exito.");                  
+               }
+            }
+        }
+        if(sabado){
+          Status = "Sa";
+            if(hora<=9){
+                mix = cero + sout;
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+mix);
+             if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                 JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");
+             }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour);  
+              }
+            }else{
+                int weekDayAndHour = Conexion.metodoDiaHoraToByte(Status+hora);
+               if(Conexion.verifyNoDoubleHour(room, weekDayAndHour)){
+                JOptionPane.showMessageDialog(rootPane, "El salon ya esta siendo usado a esa hora.");  
+               }else{
+               Conexion.addHours(userId, roomId, weekDayAndHour); 
+               JOptionPane.showMessageDialog(null,"Hora añadida con exito.");                  
+               }
+            }
+        }
+        setRowHours();
     }//GEN-LAST:event_btnAceptarHoursActionPerformed
 
     /**

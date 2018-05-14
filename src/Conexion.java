@@ -583,6 +583,41 @@ public class Conexion {
         //Error
         return "NU00";
     }
+       public static int metodoDiaHoraToByte(String weekDayAndHourValue){
+
+        if(weekDayAndHourValue.length() != 4)
+            return -1;
+
+        if(weekDayAndHourValue.charAt(2) < '0' && weekDayAndHourValue.charAt(2)  > '9')
+            return -1;
+
+        if(weekDayAndHourValue.charAt(3) < '0' && weekDayAndHourValue.charAt(3) > '9')
+            return -1;
+
+        //Lunes
+        if(weekDayAndHourValue.charAt(0) == 'L' && weekDayAndHourValue.charAt(1) == 'u')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48));
+        //Martes
+        if(weekDayAndHourValue.charAt(0) == 'M' && weekDayAndHourValue.charAt(1) == 'a')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48)) + 24;
+        //Miercoles
+        if(weekDayAndHourValue.charAt(0) == 'M' && weekDayAndHourValue.charAt(1) == 'i')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48)) + 48;
+        //Jueves
+        if(weekDayAndHourValue.charAt(0) == 'J' && weekDayAndHourValue.charAt(1) == 'u')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48)) + 72;
+        //Viernes
+        if(weekDayAndHourValue.charAt(0) == 'V' && weekDayAndHourValue.charAt(1) == 'i')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48)) + 96;
+        //Sabado
+        if(weekDayAndHourValue.charAt(0) == 'S' && weekDayAndHourValue.charAt(1) == 'a')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48)) + 120;
+        //Domingo
+        if(weekDayAndHourValue.charAt(0) == 'D' && weekDayAndHourValue.charAt(1) == 'o')
+            return ((10 * (weekDayAndHourValue.charAt(2)-48)) + (weekDayAndHourValue.charAt(3) - 48)) + 144;
+        //Error
+        return -1;
+    }
    public static boolean addHours(String userId, String RoomId, int weekDayAndHourValue){
        Statement consulta;
        try{
@@ -591,13 +626,35 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "INSERT INTO Hours VALUES (" + userId + ", " + RoomId + ", " + weekDayAndHourValue + ");";
+       String SQL = "INSERT INTO Hours VALUES (" + userId + ", " + RoomId + ", " + weekDayAndHourValue +");";
+       //System.out.println(SQL);
        try{
-           consulta.executeQuery(SQL);
+           consulta.execute(SQL);
        }catch(SQLException ex){
            System.out.println(ex.toString());
            return false;
        }
        return true;
+   }
+      public static boolean verifyNoDoubleHour(String room ,int weekDayAndHour){
+       Statement consulta;
+       try{
+         consulta = cone.createStatement(); 
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       String roomId = Conexion.getRoomId(room);
+       String SQL = "SELECT * FROM Hours WHERE weekDayAndHour =" + weekDayAndHour + " AND roomId = " +roomId+ ";";
+       try{
+         ResultSet rs = consulta.executeQuery(SQL);
+         if(rs.next()){
+             return true;
+         }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       return false; 
    }
 }
