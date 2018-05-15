@@ -22,7 +22,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
        Statement consulta;
        int X = 0;
        consulta = Conexion.cone.createStatement();
-       String SQL = "SELECT username FROM Users;";
+       String SQL = "SELECT username FROM Users WHERE userId != 0;";
        try{
            ResultSet rs = consulta.executeQuery(SQL);
            cmbUser.removeAllItems();
@@ -202,7 +202,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private void setRowUsers(){
         try{
-            String sentencia = "SELECT userId, username, firstName, lastName, accessLevel, mail, phone FROM users";
+            String sentencia = "SELECT userId, username, firstName, lastName, accessLevel, mail, phone FROM users WHERE userId != 0";
             
                         PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
                         ResultSet rs = sel.executeQuery();
@@ -227,7 +227,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private void setRowAllUsers(){
         try{
-            String sentencia = "SELECT userId, username, password, firstName, lastName, accessLevel, mail, phone FROM users";
+            String sentencia = "SELECT userId, username, password, firstName, lastName, accessLevel, mail, phone FROM users WHERE userId != 0;";
             
                         PreparedStatement sel = Conexion.crear().prepareStatement(sentencia);
                         ResultSet rs = sel.executeQuery();
