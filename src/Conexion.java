@@ -1,9 +1,12 @@
 
+import java.awt.Component;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -583,7 +586,7 @@ public class Conexion {
         //Error
         return "NU00";
     }
-       public static int metodoDiaHoraToByte(String weekDayAndHourValue){
+   public static int metodoDiaHoraToByte(String weekDayAndHourValue){
 
         if(weekDayAndHourValue.length() != 4)
             return -1;
@@ -636,7 +639,34 @@ public class Conexion {
        }
        return true;
    }
-      public static boolean verifyNoDoubleHour(String room ,int weekDayAndHour){
+   public static boolean addReservs(String userId, String RoomId, String Date, int weekDayAndHourValue, Component thi ){
+       Statement consulta;
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       String SQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +");";
+       try{
+//           System.out.println(SQL);
+          ResultSet rs = consulta.executeQuery(SQL);
+//           System.out.println(rs);
+          if(rs.getInt("0") == 0){
+              JOptionPane.showMessageDialog(thi, "Error al reservar un salon (El salon puede estar ocupado/Error en una variable).");
+              return false;
+          }else if(rs.getInt(1) == 1){
+              JOptionPane.showMessageDialog(thi, "Reserva añadida con exito.");
+          }else if(rs.getInt(1) == 2){
+              JOptionPane.showMessageDialog(thi, "Reserva añadida con exito.");
+          }
+        }catch(SQLException ex){
+            System.out.println(ex.toString());
+            return false;
+        }
+       return true;
+   }
+   public static boolean verifyNoDoubleHour(String room ,int weekDayAndHour){
        Statement consulta;
        try{
          consulta = cone.createStatement(); 
@@ -656,5 +686,25 @@ public class Conexion {
            return false;
        }
        return false; 
+   }
+   public static boolean addReservsCall(String userId, String RoomId, String Date, int weekDayAndHourValue, Component thi){
+       
+       try{
+           String funcionSQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +");";
+           CallableStatement cs = cone.prepareCall(funcionSQL);
+           cs.execute();
+           int resultado = cs.getInt(1);
+           if(resultado == 0){
+               JOptionPane.showMessageDialog(thi, "Error añadiendo reserva.");
+           }else if(resultado == 1){
+               JOptionPane.showMessageDialog(thi, "Añadido con exito." );
+           }else if(resultado == 2){
+               JOptionPane.showMessageDialog(thi, "Añadido con exito");
+           }
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       return true;
    }
 }

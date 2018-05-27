@@ -1,7 +1,10 @@
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,32 +21,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
     DefaultTableModel modeloTablaReservs;
     DefaultTableModel modeloTablaHours;
     
-        public void cargarUsersCombBoxTabReservs() throws SQLException{
-       Statement consulta;
+        public void cargarUsersCombBoxTabReservs() throws SQLException{ //Metodo para mostrar el nombre de usuarios de la base de datos por medio de un ComboBox en la pestaña de reservas. 
+       Statement consulta; //Se crea una consulta 
        int X = 0;
        consulta = Conexion.cone.createStatement();
-       String SQL = "SELECT username FROM Users WHERE userId != 0;";
+       String SQL = "SELECT username FROM Users WHERE userId != 0;"; //Se hace la consulta y se guarda en una variable String llamada SQL 
        try{
-           ResultSet rs = consulta.executeQuery(SQL);
-           cmbUser.removeAllItems();
-           while(rs.next()){
-               cmbUser.addItem(rs.getString(1));
-              
+           ResultSet rs = consulta.executeQuery(SQL); //Se ejecuta la consulta y se guarda en una variable que contendra su resultado. 
+           cmbUserTabReservs.removeAllItems(); //Se borran los datos que se tenian para que no se haga un ComboBox muy largo 
+           while(rs.next()){ //Este ciclo While revisa que el resultado de la consulta sea valido revisando la tabla de la base de datos y asi saber que se encuentra en la base de datos.
+               cmbUserTabReservs.addItem(rs.getString(1)); //Si se encuentra en la base de datos se agrega un elemento al ComboBoxUsuarios con el nombre de los campos.  
            }
        }catch(SQLException ex){
            System.out.println(ex.toString());
        }   
    
     }
-        public void cargarBuildingCombBoxTabReservs() throws SQLException{
+        public void cargarBuildingCombBoxTabReservs() throws SQLException{ //Vease linea de codigo 21 
        Statement consulta;
        consulta = Conexion.cone.createStatement();
        String SQL = "SELECT name FROM Buildings;";
        try{
            ResultSet rs = consulta.executeQuery(SQL);
-           cmbBuilding.removeAllItems();
+           cmbBuildingTabReservs.removeAllItems();
            while(rs.next()){
-               cmbBuilding.addItem(rs.getString(1));
+               cmbBuildingTabReservs.addItem(rs.getString(1));
               
            }
        }catch(SQLException ex){
@@ -51,15 +53,15 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
-        public void cargarRoomsCombBoxTabReservs() throws SQLException{
+        public void cargarRoomsCombBoxTabReservs() throws SQLException{ //Vease linea de codigo 21
        Statement consulta;
        consulta = Conexion.cone.createStatement();
-       String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuilding.getSelectedItem().toString()+"');";
+       String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuildingTabReservs.getSelectedItem().toString()+"');"; //Consulta SELECT anidada que muestra el Salon dependiendo el edificio que este en el ComboBoxBuildings
        try{
            ResultSet rs = consulta.executeQuery(SQL);
-           cmbRoom.removeAllItems();
+           cmbRoomTabReservs.removeAllItems();
            while(rs.next()){
-               cmbRoom.addItem(rs.getString(1));
+               cmbRoomTabReservs.addItem(rs.getString(1));
               
            }
        }catch(SQLException ex){
@@ -67,7 +69,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
        }   
    
     }
-        public void cargarBuildingCombBoxTabHours() throws SQLException{
+        public void cargarBuildingCombBoxTabHours() throws SQLException{ //Vease linea de codigo 21 
           Statement consulta;
           consulta = Conexion.cone.createStatement();
            String SQL = "SELECT name FROM Buildings;";
@@ -82,7 +84,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
            System.out.println(ex.toString());
            }       
         }
-        public void cargarRoomsCombBoxTabHours() throws SQLException{
+        public void cargarRoomsCombBoxTabHours() throws SQLException{ //Vease linea de codigo 21
           Statement consulta;
           consulta = Conexion.cone.createStatement();
           String SQL = "SELECT name FROM Rooms WHERE buildingId IN(SELECT buildingId FROM Buildings WHERE name='"+cmbBuildingTabHours.getSelectedItem().toString()+"');";
@@ -97,7 +99,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
            System.out.println(ex.toString());
             }  
         }
-        public void cargarUsersNameCombBoxTabHours() throws SQLException{
+        public void cargarUsersNameCombBoxTabHours() throws SQLException{ //Vease linea de codigo 21
         Statement consulta;
         consulta = Conexion.cone.createStatement();
         String SQL = "SELECT username FROM Users WHERE userid != 0;";
@@ -111,7 +113,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                System.out.println(ex.toString());
               } 
         }
-     public AgregarUsuario() {
+     public AgregarUsuario() { //Constructor de la clase 
         modeloTabla = new DefaultTableModel(null, getColumnFailAccess());
         modeloTablaUsers12 = new DefaultTableModel(null, getColumnUsers());
         modeloTablaOkAccess12 = new DefaultTableModel(null, getColumnOkAccess());
@@ -160,7 +162,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }
     private String[] getColumnAllUsers(){
         String columna[] = new String[]{"Id","Usuario","contraseña","Nombre","Apellido","Nivel","Email","Telefono"};
-        return columna; //dkjsfk
+        return columna; 
     }
     private String[] getColumnRooms(){
         String columna[] = new String[]{"Id","Edificio","nombre de Salon","Temperatura minima","Temperatura media","Temperatura maxima","Temperatura seleccionada","modo"};
@@ -467,18 +469,19 @@ public class AgregarUsuario extends javax.swing.JFrame {
         jTable7 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
-        cmbUser = new javax.swing.JComboBox<>();
-        cmbBuilding = new javax.swing.JComboBox<>();
-        cmbRoom = new javax.swing.JComboBox<>();
+        cmbUserTabReservs = new javax.swing.JComboBox<>();
+        cmbBuildingTabReservs = new javax.swing.JComboBox<>();
+        cmbRoomTabReservs = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jcalendarCmb = new org.freixas.jcalendar.JCalendarCombo();
         jLabel23 = new javax.swing.JLabel();
-        cmbHora = new javax.swing.JComboBox<>();
+        cmbHourTabReservs = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
         btnReservar = new javax.swing.JButton();
+        lblTest = new javax.swing.JLabel();
+        SelectorDia = new com.toedter.calendar.JDateChooser();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
@@ -948,7 +951,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel17.setText("Temperatura selecc.");
 
-        jLabel18.setText("modo");
+        jLabel18.setText("Modo");
 
         txtminTemp.setMaximumSize(new java.awt.Dimension(205, 20));
         txtminTemp.setMinimumSize(new java.awt.Dimension(205, 20));
@@ -1128,22 +1131,22 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel19.setText("Reservas");
 
-        cmbUser.setMaximumSize(new java.awt.Dimension(200, 20));
-        cmbUser.setMinimumSize(new java.awt.Dimension(200, 20));
-        cmbUser.setPreferredSize(new java.awt.Dimension(200, 20));
+        cmbUserTabReservs.setMaximumSize(new java.awt.Dimension(200, 20));
+        cmbUserTabReservs.setMinimumSize(new java.awt.Dimension(200, 20));
+        cmbUserTabReservs.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        cmbBuilding.setMaximumSize(new java.awt.Dimension(200, 20));
-        cmbBuilding.setMinimumSize(new java.awt.Dimension(200, 20));
-        cmbBuilding.setPreferredSize(new java.awt.Dimension(200, 20));
-        cmbBuilding.addActionListener(new java.awt.event.ActionListener() {
+        cmbBuildingTabReservs.setMaximumSize(new java.awt.Dimension(200, 20));
+        cmbBuildingTabReservs.setMinimumSize(new java.awt.Dimension(200, 20));
+        cmbBuildingTabReservs.setPreferredSize(new java.awt.Dimension(200, 20));
+        cmbBuildingTabReservs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBuildingActionPerformed(evt);
+                cmbBuildingTabReservsActionPerformed(evt);
             }
         });
 
-        cmbRoom.setMaximumSize(new java.awt.Dimension(200, 20));
-        cmbRoom.setMinimumSize(new java.awt.Dimension(200, 20));
-        cmbRoom.setPreferredSize(new java.awt.Dimension(200, 20));
+        cmbRoomTabReservs.setMaximumSize(new java.awt.Dimension(200, 20));
+        cmbRoomTabReservs.setMinimumSize(new java.awt.Dimension(200, 20));
+        cmbRoomTabReservs.setPreferredSize(new java.awt.Dimension(200, 20));
 
         jLabel20.setText("Usuario que hara la reserva:");
 
@@ -1153,16 +1156,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jButton2.setText("Recargar Tabla");
 
-        jcalendarCmb.setMaximumSize(new java.awt.Dimension(200, 20));
-        jcalendarCmb.setMinimumSize(new java.awt.Dimension(200, 20));
-        jcalendarCmb.setPreferredSize(new java.awt.Dimension(200, 20));
-
         jLabel23.setText("Dia:");
 
-        cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
-        cmbHora.setMaximumSize(new java.awt.Dimension(200, 20));
-        cmbHora.setMinimumSize(new java.awt.Dimension(200, 20));
-        cmbHora.setPreferredSize(new java.awt.Dimension(200, 20));
+        cmbHourTabReservs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22" }));
+        cmbHourTabReservs.setMaximumSize(new java.awt.Dimension(200, 20));
+        cmbHourTabReservs.setMinimumSize(new java.awt.Dimension(200, 20));
+        cmbHourTabReservs.setPreferredSize(new java.awt.Dimension(200, 20));
 
         jLabel24.setText("Hora:");
 
@@ -1175,6 +1174,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 btnReservarActionPerformed(evt);
             }
         });
+
+        lblTest.setText("jLabel31");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1192,22 +1193,24 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnReservar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel19)
-                        .addComponent(cmbBuilding, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbRoom, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcalendarCmb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbHora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(197, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel24))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnReservar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel19)
+                            .addComponent(cmbBuildingTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbRoomTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbHourTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbUserTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SelectorDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblTest))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1224,25 +1227,27 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
-                            .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbUserTabReservs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
-                            .addComponent(cmbBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbBuildingTabReservs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(cmbRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbRoomTabReservs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel23)
-                            .addComponent(jcalendarCmb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(SelectorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
-                            .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbHourTabReservs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
-                        .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(lblTest)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1316,7 +1321,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         cmbHorarioHora.setMinimumSize(new java.awt.Dimension(200, 20));
         cmbHorarioHora.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        jLabel29.setText("Dias semana");
+        jLabel29.setText("Hora");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1331,38 +1336,31 @@ public class AgregarUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel25)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel26)
-                                            .addComponent(jLabel27)
-                                            .addComponent(jLabel28))
-                                        .addGap(42, 42, 42))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel29)
-                                        .addGap(18, 18, 18)))
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29))
+                                .addGap(42, 42, 42)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cmbHorarioHora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbFirstNameTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbBuildingTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbRoomTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnPrueba)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnPrueba)
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnAceptarHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(chkbJueves)
-                                        .addComponent(chkbViernes)
-                                        .addComponent(chkbSabado)
-                                        .addComponent(lblPrueba)
-                                        .addComponent(chkbLunes)
-                                        .addComponent(chkbMartes)
-                                        .addComponent(chkbMiercoles)))))
+                                    .addComponent(btnAceptarHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(chkbJueves)
+                                    .addComponent(chkbViernes)
+                                    .addComponent(chkbSabado)
+                                    .addComponent(lblPrueba)
+                                    .addComponent(chkbLunes)
+                                    .addComponent(chkbMartes)
+                                    .addComponent(chkbMiercoles))))
                         .addGap(156, 412, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
@@ -1712,17 +1710,62 @@ public class AgregarUsuario extends javax.swing.JFrame {
             setRowRooms();
     }//GEN-LAST:event_btnDeleteRomsActionPerformed
 
-    private void cmbBuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBuildingActionPerformed
+    private void cmbBuildingTabReservsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBuildingTabReservsActionPerformed
         // TODO add your handling code here:
         try {
             cargarRoomsCombBoxTabReservs();
         } catch (SQLException ex) {
             Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_cmbBuildingActionPerformed
+    }//GEN-LAST:event_cmbBuildingTabReservsActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        // TODO add your handling code here:
+     String formato = "yyyy-MM-dd";
+     String formatoNombreDia = "E";
+     String username = cmbUserTabReservs.getSelectedItem().toString();
+     String room = cmbRoomTabReservs.getSelectedItem().toString();
+     String userId = Conexion.getUserId(username);
+     String roomId = Conexion.getRoomId(room);
+      
+        java.util.Date dateInsert = SelectorDia.getDate();
+        java.util.Date date = SelectorDia.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat(formato);
+        SimpleDateFormat sdf1 = new SimpleDateFormat(formatoNombreDia);
+        String formatoMetodo = sdf1.format(date);
+        String formatoDate = sdf.format(dateInsert);
+        int Hora = Integer.parseInt(cmbHourTabReservs.getSelectedItem().toString());
+        String formatoMetodoBien = String.valueOf(formatoMetodo.toUpperCase().charAt(0)) + formatoMetodo.charAt(1);
+        String sout = "" + Hora;
+        String cero = "0";
+        String mix = "00";
+        
+         if(Hora <= 9){
+            mix = cero + sout;
+            int weekDayAndHourValue = Conexion.metodoDiaHoraToByte(formatoMetodoBien + mix);
+            
+//             System.out.println("userId = " + userId);
+//             System.out.println("roomId = " + roomId);
+//             System.out.println("Date = " + formatoDate);
+//             System.out.println("Dia y Hora = " + weekDayAndHourValue);
+//             System.out.println("Caso = " + Case);
+             
+             Conexion.addReservsCall(userId, roomId, formatoDate, weekDayAndHourValue, this);
+             
+         }else {
+             int weekDayAndHourValue = Conexion.metodoDiaHoraToByte(formatoMetodoBien + sout);
+//             System.out.println("userId = " + userId);
+//             System.out.println("roomId = " + roomId);
+//             System.out.println("Date = " + formatoDate);
+//             System.out.println("Dia y Hora = " + weekDayAndHourValue);
+//             System.out.println("Caso = " + Case);
+             Conexion.addReservsCall(userId, roomId, formatoDate, weekDayAndHourValue, this);
+         }
+         setRowReservs();
+        //lblTest.setText(sdf.format(date));
+        //System.out.println(String.valueOf(formatoMetodo.toUpperCase().charAt(0)) + formatoMetodo.charAt(1));
+       
+        //Conexion.addReservs(, formato, formato, HAND_CURSOR, WIDTH)
+        
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnUpdateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateRoomActionPerformed
@@ -1960,6 +2003,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton RadiobtnLamp1;
     private javax.swing.JRadioButton RadiobtnLamp2;
+    private com.toedter.calendar.JDateChooser SelectorDia;
     private javax.swing.JButton btnAceptarHours;
     private javax.swing.JButton btnAddBuild;
     private javax.swing.JButton btnAddClassRoom;
@@ -1986,14 +2030,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkbMiercoles;
     private javax.swing.JCheckBox chkbSabado;
     private javax.swing.JCheckBox chkbViernes;
-    private javax.swing.JComboBox<String> cmbBuilding;
     private javax.swing.JComboBox<String> cmbBuildingTabHours;
+    private javax.swing.JComboBox<String> cmbBuildingTabReservs;
     private javax.swing.JComboBox<String> cmbFirstNameTabHours;
-    private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbHorarioHora;
-    private javax.swing.JComboBox<String> cmbRoom;
+    private javax.swing.JComboBox<String> cmbHourTabReservs;
     private javax.swing.JComboBox<String> cmbRoomTabHours;
-    private javax.swing.JComboBox<String> cmbUser;
+    private javax.swing.JComboBox<String> cmbRoomTabReservs;
+    private javax.swing.JComboBox<String> cmbUserTabReservs;
     private javax.swing.JComboBox<String> combAccessLvl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -2055,12 +2099,12 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
-    private org.freixas.jcalendar.JCalendarCombo jcalendarCmb;
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
     private javax.swing.JLabel lblPrueba;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTest;
     private javax.swing.JLabel lblUserid;
     private javax.swing.JLabel lblbuild;
     private javax.swing.JLabel lblroomid;
