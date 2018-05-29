@@ -686,6 +686,32 @@ public class Conexion {
        }
        return false; 
    }
+   public static boolean CancelRoom(String userId, String RoomId, String Date, String weekDayAndHourValue, Component thi ){
+       Statement consulta;
+       try{
+         consulta = cone.createStatement();
+       }catch(SQLException ex){
+           System.out.println(ex.toString());
+           return false;
+       }
+       String SQL = "SELECT cancelRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response' ";
+       try{
+//           System.out.println(SQL);
+          ResultSet rs = consulta.executeQuery(SQL);
+          rs.next();
+          int resultadoFuncion = rs.getInt("response");
+          if(resultadoFuncion == 0){
+              JOptionPane.showMessageDialog(thi, "Error al liberar un salon");
+              return false;
+          }else{
+              JOptionPane.showMessageDialog(thi, "Liberacion con exito.");
+          }
+        }catch(SQLException ex){
+            System.out.println(ex.toString());
+            return false;
+        }
+       return true;
+   }
 //   public static boolean addReservsCall(String userId, String RoomId, String Date, int weekDayAndHourValue, Component thi){
 //       
 //       try{

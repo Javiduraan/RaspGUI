@@ -1178,6 +1178,9 @@
                       <Component id="jSeparator1" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblUserIdRes" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbldateRes" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblwdhRes" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1185,21 +1188,24 @@
                                   <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblRoomidRes" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnReservar" max="32767" attributes="0"/>
-                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmbBuildingTabReservs" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cmbRoomTabReservs" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cmbHourTabReservs" max="32767" attributes="0"/>
-                                  <Component id="cmbUserTabReservs" max="32767" attributes="0"/>
-                                  <Component id="SelectorDia" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnReservar1" max="32767" attributes="0"/>
+                                  <Component id="btnReservar" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbBuildingTabReservs" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cmbRoomTabReservs" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cmbHourTabReservs" max="32767" attributes="0"/>
+                                      <Component id="cmbUserTabReservs" max="32767" attributes="0"/>
+                                      <Component id="SelectorDia" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Component id="lblTest" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="167" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1241,10 +1247,19 @@
                                   <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="cmbHourTabReservs" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                               <Component id="btnReservar" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                              <Component id="lblTest" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblUserIdRes" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblRoomidRes" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnReservar1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lbldateRes" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lblwdhRes" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -1266,6 +1281,9 @@
                       <Connection code="modeloTablaReservs" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable7MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1423,12 +1441,44 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblTest">
+            <Component class="com.toedter.calendar.JDateChooser" name="SelectorDia">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblUserIdRes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jLabel31"/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="SelectorDia">
+            <Component class="javax.swing.JLabel" name="lblRoomidRes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jLabel32"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbldateRes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jLabel33"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblwdhRes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jLabel34"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnReservar1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Limpiar"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[200, 30]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[200, 30]"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[200, 30]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservar1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1544,7 +1594,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane8" min="-2" pref="451" max="-2" attributes="0"/>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
