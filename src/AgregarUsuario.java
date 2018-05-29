@@ -1174,7 +1174,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel24.setText("Hora:");
 
-        btnReservar.setText("RESERVAR");
+        btnReservar.setText("RESERVAR AULA");
         btnReservar.setMaximumSize(new java.awt.Dimension(200, 30));
         btnReservar.setMinimumSize(new java.awt.Dimension(200, 30));
         btnReservar.setPreferredSize(new java.awt.Dimension(200, 30));
@@ -1184,15 +1184,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
-        lblUserIdRes.setText("jLabel31");
-
-        lblRoomidRes.setText("jLabel32");
-
-        lbldateRes.setText("jLabel33");
-
-        lblwdhRes.setText("jLabel34");
-
-        btnReservar1.setText("Limpiar");
+        btnReservar1.setText("LIBERAR AULA");
         btnReservar1.setMaximumSize(new java.awt.Dimension(200, 30));
         btnReservar1.setMinimumSize(new java.awt.Dimension(200, 30));
         btnReservar1.setPreferredSize(new java.awt.Dimension(200, 30));
@@ -1230,17 +1222,19 @@ public class AgregarUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel24)
                             .addComponent(lblRoomidRes))
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReservar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel19)
-                                .addComponent(cmbBuildingTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbRoomTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbHourTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbUserTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(SelectorDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(167, Short.MAX_VALUE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel19)
+                            .addComponent(cmbBuildingTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbRoomTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbHourTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbUserTabReservs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SelectorDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnReservar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1275,13 +1269,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel24)
                             .addComponent(cmbHourTabReservs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53)
-                        .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnReservar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblUserIdRes)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRoomidRes)
-                            .addComponent(btnReservar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblRoomidRes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbldateRes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2008,8 +2002,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
             lblRoomidRes.setText(jTable7.getValueAt(fila, 1).toString());
             lbldateRes.setText(jTable7.getValueAt(fila, 2).toString());
             lblwdhRes.setText(jTable7.getValueAt(fila, 3).toString());
-            
-            
+            lblUserIdRes.setVisible(false);
+            lblRoomidRes.setVisible(false);
+            lbldateRes.setVisible(false);
+            lblwdhRes.setVisible(false);
            
             }
             else{
@@ -2025,6 +2021,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         
         
         Conexion.CancelRoom(idUser, roomId, date,  wdh, this);
+        setRowReservs();
     }//GEN-LAST:event_btnReservar1ActionPerformed
 
     /**
