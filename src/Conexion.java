@@ -647,17 +647,16 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +");";
+       String SQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response' ";
        try{
 //           System.out.println(SQL);
           ResultSet rs = consulta.executeQuery(SQL);
-//           System.out.println(rs);
-          if(rs.getInt("0") == 0){
-              JOptionPane.showMessageDialog(thi, "Error al reservar un salon (El salon puede estar ocupado/Error en una variable).");
+          rs.next();
+          int resultadoFuncion = rs.getInt("response");
+          if(resultadoFuncion == 0){
+              JOptionPane.showMessageDialog(thi, "Error al reservar un salon (El salon puede estar ocupado/Error en una variable)");
               return false;
-          }else if(rs.getInt(1) == 1){
-              JOptionPane.showMessageDialog(thi, "Reserva añadida con exito.");
-          }else if(rs.getInt(1) == 2){
+          }else{
               JOptionPane.showMessageDialog(thi, "Reserva añadida con exito.");
           }
         }catch(SQLException ex){
@@ -687,24 +686,22 @@ public class Conexion {
        }
        return false; 
    }
-   public static boolean addReservsCall(String userId, String RoomId, String Date, int weekDayAndHourValue, Component thi){
-       
-       try{
-           String funcionSQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +");";
-           CallableStatement cs = cone.prepareCall(funcionSQL);
-           cs.execute();
-           int resultado = cs.getInt(1);
-           if(resultado == 0){
-               JOptionPane.showMessageDialog(thi, "Error añadiendo reserva.");
-           }else if(resultado == 1){
-               JOptionPane.showMessageDialog(thi, "Añadido con exito." );
-           }else if(resultado == 2){
-               JOptionPane.showMessageDialog(thi, "Añadido con exito");
-           }
-       }catch(SQLException ex){
-           System.out.println(ex.toString());
-           return false;
-       }
-       return true;
-   }
+//   public static boolean addReservsCall(String userId, String RoomId, String Date, int weekDayAndHourValue, Component thi){
+//       
+//       try{
+//           String funcionSQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response'";
+//           CallableStatement cs = cone.prepareCall(funcionSQL);
+//           cs.execute();
+//           int resultado = cs.getInt(1);
+//           if(resultado == 0){
+//               JOptionPane.showMessageDialog(thi, "Error añadiendo reserva.");
+//           }else {
+//               
+//           }
+//       }catch(SQLException ex){
+//           System.out.println(ex.toString());
+//           return false;
+//       }
+//       return true;
+//   }
 }

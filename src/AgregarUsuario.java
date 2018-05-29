@@ -1749,7 +1749,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 //             System.out.println("Dia y Hora = " + weekDayAndHourValue);
 //             System.out.println("Caso = " + Case);
              
-             Conexion.addReservsCall(userId, roomId, formatoDate, weekDayAndHourValue, this);
+             Conexion.addReservs(userId, roomId, formatoDate, weekDayAndHourValue, this);
              
          }else {
              int weekDayAndHourValue = Conexion.metodoDiaHoraToByte(formatoMetodoBien + sout);
@@ -1758,7 +1758,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 //             System.out.println("Date = " + formatoDate);
 //             System.out.println("Dia y Hora = " + weekDayAndHourValue);
 //             System.out.println("Caso = " + Case);
-             Conexion.addReservsCall(userId, roomId, formatoDate, weekDayAndHourValue, this);
+             Conexion.addReservs(userId, roomId, formatoDate, weekDayAndHourValue, this);
          }
          setRowReservs();
         //lblTest.setText(sdf.format(date));
