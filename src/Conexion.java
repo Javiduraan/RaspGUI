@@ -30,8 +30,8 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver"); // Buscamos el driver que vamos a utilizar
             //cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--master","JAVARD-SL--MASTERUSER","clave");
-            cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--master?useSSL=false","root","");
-          // cone = DriverManager.getConnection("jdbc:mysql://192.168.137.243:3306/Prototipo","lolo","tec2.123"); //Buscamos la base de datos con el usuario y pass para crear la conexion exitosa.
+         //   cone = DriverManager.getConnection("jdbc:mysql://localhost/javard-sl--master?useSSL=false","root","");
+           cone = DriverManager.getConnection("jdbc:mysql://192.168.137.90:3306/javard-sl--master?useSSL=false","JAVARD-SL--MASTERUSER","clave"); //Buscamos la base de datos con el usuario y pass para crear la conexion exitosa.
             } catch (SQLException ex){ //Si no se consigue la conexion se el programa lanzara un error
                 throw new SQLException(ex);
             } catch (ClassNotFoundException ex) {
@@ -68,7 +68,7 @@ public class Conexion {
            return false;
        }
        //Update 
-       String str = "UPDATE units SET value=" + vLamp+ " WHERE unitId=" + lamp + ";";
+       String str = "UPDATE Units SET value=" + vLamp+ " WHERE unitId=" + lamp + ";";
        try{
            query.executeUpdate(str);
        }catch (SQLException ex){
@@ -86,7 +86,7 @@ public class Conexion {
            System.out.println("error al crear el query!!");
            return false;
        }
-       String stat = "INSERT INTO users (username, password, firstName, lastName, accessLevel, mail, phone) VALUES ('"+username+"', '"+passwd+"', '"+firstName+"', '"+LastName+"', "+accesslvl+", '"+eMail+"', '"+Phone+"');";
+       String stat = "INSERT INTO Users (username, password, firstName, lastName, accessLevel, mail, phone) VALUES ('"+username+"', '"+passwd+"', '"+firstName+"', '"+LastName+"', "+accesslvl+", '"+eMail+"', '"+Phone+"');";
        try{
            query.execute(stat);
        }catch (SQLException ex){
@@ -109,7 +109,7 @@ public class Conexion {
        String stat2 = "DELETE from Hours WHERE userId = "+userId+";";
        String stat3 = "DELETE from FailAccessLogs WHERE userId = "+userId+";";
        String stat4 = "DELETE from OkAccessLogs WHERE userId = "+userId+";";
-       String stat5 = "DELETE from users WHERE userId = "+userId+";";
+       String stat5 = "DELETE from Users WHERE userId = "+userId+";";
        try{
            query.execute(stat1);
            query.execute(stat2);
@@ -149,7 +149,7 @@ public class Conexion {
        }catch(SQLException ex){
            return false; 
        }
-       String insert = "INSERT INTO buildings(name) Values ('" +edificio+"');";
+       String insert = "INSERT INTO Buildings(name) Values ('" +edificio+"');";
        try{
            query.execute(insert);
        }catch(SQLException ex){
@@ -291,7 +291,7 @@ public class Conexion {
              System.out.println(e.toString());
              return resultado;
          }
-         String SQL = "SELECT * FROM users WHERE username='"+user+"' AND password='"+passEncrypted+"';";
+         String SQL = "SELECT * FROM Users WHERE username='"+user+"' AND password='"+passEncrypted+"';";
          try{
              ResultSet rs = consulta.executeQuery(SQL);
              if(rs.next()){
@@ -314,7 +314,7 @@ public class Conexion {
        }catch(SQLException ex){
            return "Error creando statement";
        }
-       String SQL = "SELECT userId FROM users WHERE username='"+username+"';";
+       String SQL = "SELECT userId FROM Users WHERE username='"+username+"';";
        try{
           ResultSet rs = consulta.executeQuery(SQL);
           if(rs.next()){
@@ -358,7 +358,7 @@ public class Conexion {
        }catch(SQLException ex){
            return "null";
        }
-       String SQL = "SELECT accessLevel FROM users WHERE username='"+username+"';";
+       String SQL = "SELECT accessLevel FROM Users WHERE username='"+username+"';";
        try{
           ResultSet rs = consulta.executeQuery(SQL);
           if(rs.next()){
@@ -379,7 +379,7 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "INSERT INTO failaccesslogs (userId, date, time, details) VALUES ("+userId+", '"+date+"', '"+time+"', '"+details+"');";
+       String SQL = "INSERT INTO FailAccessLogs (userId, date, time, details) VALUES ("+userId+", '"+date+"', '"+time+"', '"+details+"');";
        try{
           consulta.execute(SQL);
        }catch(SQLException ex){
@@ -396,7 +396,7 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "INSERT INTO okaccesslogs (userId, date, time, details) VALUES ("+userId+", '"+date+"', '"+time+"', '"+details+"');";
+       String SQL = "INSERT INTO OkAccesslogs (userId, date, time, details) VALUES ("+userId+", '"+date+"', '"+time+"', '"+details+"');";
        try{
           consulta.execute(SQL);
        }catch(SQLException ex){
@@ -413,7 +413,7 @@ public class Conexion {
        }catch(SQLException ex){
            return resultado; 
        }
-       String SQL = "SELECT * FROM access WHERE  accessId= '1';";
+       String SQL = "SELECT * FROM Access WHERE  accessId= '1';";
        try{
            ResultSet rs = consulta.executeQuery(SQL);
            if(rs.next()){
@@ -433,8 +433,8 @@ public class Conexion {
            System.out.println(ex.toString());
            return false; 
        }
-       String SQL = "SELECT * FROM access WHERE A = 'JAVARD-SL--RBP3001' AND B = 'clave' AND C = 'localhost' AND D = 'JAVARD-SL--Master';";
-       String SQL2 = "SELECT * FROM singleboardspc WHERE username ='JAVARD-SL--RBP3001' AND password = 'clave' AND hostname = 'localhost' AND singleboardspc.database = 'JAVARD-SL--Master';";
+       String SQL = "SELECT * FROM Access WHERE A = 'JAVARD-SL--RBP3001' AND B = 'clave' AND C = 'localhost' AND D = 'JAVARD-SL--Master';";
+       String SQL2 = "SELECT * FROM SingleBoardsPc WHERE username ='JAVARD-SL--RBP3001' AND password = 'clave' AND hostname = 'localhost' AND SingleBoardsPc.database = 'JAVARD-SL--Master';";
        try{
         ResultSet rs = consulta.executeQuery(SQL);  
         ResultSet rs2 = consulta2.executeQuery(SQL2);
@@ -473,9 +473,9 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 1;" ;
-       String SQL2 = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 2;" ;
-       String SQL3 = "SELECT * FROM singleboardspc WHERE singleBoardPcId = 3;" ;
+       String SQL = "SELECT * FROM SingleBoardsPc WHERE singleBoardPcId = 1;" ;
+       String SQL2 = "SELECT * FROM SingleBoardsPc WHERE singleBoardPcId = 2;" ;
+       String SQL3 = "SELECT * FROM SingleBoardsPc WHERE singleBoardPcId = 3;" ;
        try{
            ResultSet rs = consulta.executeQuery(SQL);
            ResultSet rs2 = consulta3.executeQuery(SQL2);
@@ -499,9 +499,9 @@ public class Conexion {
              resulK = rs3.getString("hostname");
              resulL = rs3.getString("database");  
            }
-             String sql = "INSERT INTO access(A,B,C,D) VALUES('"+resulA+"', '" +resulB+ "', '" +resulC+ "', '" +resulD+ "');";
-             String sql2 = "INSERT INTO access(A,B,C,D) VALUES('"+resulE+"', '" +resulF+ "', '" +resulG+ "', '" +resulH+ "');";
-             String sql3 = "INSERT INTO access(A,B,C,D) VALUES('"+resulI+"', '" +resulJ+ "', '" +resulK+ "', '" +resulL+ "');";
+             String sql = "INSERT INTO Access(A,B,C,D) VALUES('"+resulA+"', '" +resulB+ "', '" +resulC+ "', '" +resulD+ "');";
+             String sql2 = "INSERT INTO Access(A,B,C,D) VALUES('"+resulE+"', '" +resulF+ "', '" +resulG+ "', '" +resulH+ "');";
+             String sql3 = "INSERT INTO Access(A,B,C,D) VALUES('"+resulI+"', '" +resulJ+ "', '" +resulK+ "', '" +resulL+ "');";
               try{
                consulta2.execute(sql);
                consulta2.execute(sql2);
@@ -646,7 +646,7 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response' ";
+       String SQL = "SELECT ReservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response' ";
        try{
 //           System.out.println(SQL);
           ResultSet rs = consulta.executeQuery(SQL);
@@ -693,7 +693,7 @@ public class Conexion {
            System.out.println(ex.toString());
            return false;
        }
-       String SQL = "SELECT cancelRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response' ";
+       String SQL = "SELECT CancelRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response' ";
        try{
 //           System.out.println(SQL);
           ResultSet rs = consulta.executeQuery(SQL);
