@@ -90,12 +90,12 @@
   <SubComponents>
     <Component class="javax.swing.JCheckBox" name="chkbLampara1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lamampara1"/>
+        <Property name="text" type="java.lang.String" value="Lampara1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkbLampara2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lamampara2"/>
+        <Property name="text" type="java.lang.String" value="Lampara2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblColor">
@@ -120,7 +120,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancelar Conexi&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>

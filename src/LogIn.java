@@ -306,7 +306,7 @@ public class LogIn extends javax.swing.JFrame {
                         //Si el nivel de usuario es 3 significa que es un simple mortal que solo quiere llorar. :)
                     String detail = "Acceso de usuario mortal autorizado";
                     Conexion.okAccessLog(userId, date.toString(), time.toString(), detail);
-                    ventanaAdmin.setVisible(true);
+                    ventanaLamp.setVisible(true);
                     this.dispose();
                     break;
                 }
@@ -377,7 +377,7 @@ public class LogIn extends javax.swing.JFrame {
                     //Si el nivel de usuario es 3 significa que es un simple mortal que solo quiere llorar. :)
                 String detail = "Acceso de usuario mortal autorizado";
                 Conexion.okAccessLog(userId, date.toString(), time.toString(), detail);
-                ventanaAdmin.setVisible(true);
+                ventanaLamp.setVisible(true);
                 this.dispose();
                 break;
             }
@@ -447,7 +447,7 @@ public class LogIn extends javax.swing.JFrame {
                         //Si el nivel de usuario es 3 significa que es un simple mortal que solo quiere llorar. :)
                     String detail = "Acceso de usuario mortal autorizado";
                     Conexion.okAccessLog(userId, date.toString(), time.toString(), detail);
-                    ventanaAdmin.setVisible(true);
+                    ventanaLamp.setVisible(true);
                     this.dispose();
                     break;
                 }

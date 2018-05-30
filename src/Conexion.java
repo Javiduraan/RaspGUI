@@ -76,7 +76,7 @@ public class Conexion {
        }
        
     return true;   
-   } //Rehacer esta parte para la nueva BD 
+   }  
    public static boolean usuarioNuevo(String username, String passwd, String firstName, String LastName, int accesslvl, String eMail, String Phone ){
        Statement query;
        try{
@@ -142,7 +142,6 @@ public class Conexion {
        }
        return true;
    }
-   
    public static boolean edificioNuevo(String edificio){
        Statement query; 
        try{
@@ -712,22 +711,4 @@ public class Conexion {
         }
        return true;
    }
-//   public static boolean addReservsCall(String userId, String RoomId, String Date, int weekDayAndHourValue, Component thi){
-//       
-//       try{
-//           String funcionSQL = "SELECT reservRoom(" + userId +", " + RoomId +", '" + Date + "', " + weekDayAndHourValue +") as 'response'";
-//           CallableStatement cs = cone.prepareCall(funcionSQL);
-//           cs.execute();
-//           int resultado = cs.getInt(1);
-//           if(resultado == 0){
-//               JOptionPane.showMessageDialog(thi, "Error añadiendo reserva.");
-//           }else {
-//               
-//           }
-//       }catch(SQLException ex){
-//           System.out.println(ex.toString());
-//           return false;
-//       }
-//       return true;
-//   }
 }

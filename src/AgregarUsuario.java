@@ -386,7 +386,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jRadioButton1 = new javax.swing.JRadioButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        TabMaster = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtUsername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -432,6 +432,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
         btnApagar = new javax.swing.JButton();
         lblLamp1 = new javax.swing.JLabel();
         lblLamp2 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
@@ -496,8 +497,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
         cmbBuildingTabHours = new javax.swing.JComboBox<>();
         jLabel28 = new javax.swing.JLabel();
         cmbRoomTabHours = new javax.swing.JComboBox<>();
-        lblPrueba = new javax.swing.JLabel();
-        btnPrueba = new javax.swing.JButton();
         btnAceptarHours = new javax.swing.JButton();
         chkbLunes = new javax.swing.JCheckBox();
         chkbMartes = new javax.swing.JCheckBox();
@@ -522,10 +521,10 @@ public class AgregarUsuario extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setResizable(false);
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setMaximumSize(new java.awt.Dimension(1195, 511));
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(1195, 511));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1195, 511));
+        TabMaster.setBackground(new java.awt.Color(255, 255, 255));
+        TabMaster.setMaximumSize(new java.awt.Dimension(1195, 511));
+        TabMaster.setMinimumSize(new java.awt.Dimension(1195, 511));
+        TabMaster.setPreferredSize(new java.awt.Dimension(1195, 511));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -557,7 +556,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
-        combAccessLvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nivel 0", "Nivel 1", "Nivel 2", "Nivel 3", "Nivel 4" }));
+        combAccessLvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desarrollador/Administrador", "Administrador de horarios", "Administrador de unidades", "Usuario mortal" }));
 
         btnAgregaUser.setText("AGREGAR");
         btnAgregaUser.addActionListener(new java.awt.event.ActionListener() {
@@ -695,7 +694,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Agregar Usuario", jPanel1);
+        TabMaster.addTab("Agregar Usuario", jPanel1);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(1195, 511));
@@ -759,7 +758,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Bitacoras", jPanel3);
+        TabMaster.addTab("Bitacoras", jPanel3);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -799,65 +798,82 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         lblLamp2.setText("Status");
 
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnTemp25)
-                    .addComponent(btnTemp20)
-                    .addComponent(btnTemp30))
-                .addGap(66, 66, 66)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RadiobtnLamp1)
-                    .addComponent(RadiobtnLamp2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(228, 228, 228)
+                        .addComponent(btnTemp20)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnTemp25)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnTemp30)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLamp1)
-                    .addComponent(lblLamp2))
-                .addGap(67, 67, 67)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEncender))
-                .addContainerGap(238, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnEncender)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RadiobtnLamp1)
+                            .addComponent(RadiobtnLamp2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLamp1)
+                            .addComponent(lblLamp2))))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(btnTemp30)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnTemp25)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnTemp20))))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RadiobtnLamp1)
-                            .addComponent(btnEncender)
-                            .addComponent(lblLamp1))
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnTemp30)
+                                    .addComponent(btnTemp25)
+                                    .addComponent(btnTemp20)
+                                    .addComponent(btnEncender)
+                                    .addComponent(btnApagar)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RadiobtnLamp2)
-                            .addComponent(btnApagar)
-                            .addComponent(lblLamp2))))
-                .addContainerGap(139, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLamp2)
+                            .addComponent(RadiobtnLamp1))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(lblLamp1))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(RadiobtnLamp2)))
+                        .addGap(0, 39, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Control Maestro Iluminacion y Temperatura", jPanel5);
+        TabMaster.addTab("Control Maestro Iluminacion y Temperatura", jPanel5);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -915,7 +931,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Dev", jPanel4);
+        TabMaster.addTab("Dev", jPanel4);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1124,7 +1140,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addGap(124, 124, 124))
         );
 
-        jTabbedPane1.addTab("Agregar Edificio y Salón", jPanel2);
+        TabMaster.addTab("Agregar Edificio y Salón", jPanel2);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1283,7 +1299,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Reservas", jPanel6);
+        TabMaster.addTab("Reservas", jPanel6);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1314,15 +1330,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
         cmbRoomTabHours.setMaximumSize(new java.awt.Dimension(200, 20));
         cmbRoomTabHours.setMinimumSize(new java.awt.Dimension(200, 20));
         cmbRoomTabHours.setPreferredSize(new java.awt.Dimension(200, 20));
-
-        lblPrueba.setText("jLabel29");
-
-        btnPrueba.setText("jButton4");
-        btnPrueba.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPruebaActionPerformed(evt);
-            }
-        });
 
         btnAceptarHours.setText("ACEPTAR");
         btnAceptarHours.addActionListener(new java.awt.event.ActionListener() {
@@ -1383,16 +1390,13 @@ public class AgregarUsuario extends javax.swing.JFrame {
                                     .addComponent(cmbBuildingTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cmbRoomTabHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnPrueba)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAceptarHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(chkbJueves)
-                                    .addComponent(chkbViernes)
-                                    .addComponent(chkbSabado)
-                                    .addComponent(lblPrueba)
-                                    .addComponent(chkbLunes)
-                                    .addComponent(chkbMartes)
-                                    .addComponent(chkbMiercoles))))
+                                .addComponent(btnAceptarHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chkbJueves)
+                                .addComponent(chkbViernes)
+                                .addComponent(chkbSabado)
+                                .addComponent(chkbLunes)
+                                .addComponent(chkbMartes)
+                                .addComponent(chkbMiercoles)))
                         .addGap(156, 412, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
@@ -1430,18 +1434,14 @@ public class AgregarUsuario extends javax.swing.JFrame {
                 .addComponent(chkbSabado)
                 .addGap(13, 13, 13)
                 .addComponent(btnAceptarHours, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPrueba)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPrueba)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Horarios", jPanel7);
+        TabMaster.addTab("Horarios", jPanel7);
 
         jPanel8.setBackground(new java.awt.Color(204, 0, 0));
 
@@ -1484,19 +1484,20 @@ public class AgregarUsuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(TabMaster, javax.swing.GroupLayout.PREFERRED_SIZE, 1195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addComponent(TabMaster, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -1832,19 +1833,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
             Logger.getLogger(AgregarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }    }//GEN-LAST:event_cmbBuildingTabHoursActionPerformed
 
-    private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
-        LinkedList lista;  
-      lista = Conexion.getDataTableHours();
-      // int ListaInt = Integer.parseInt(lista.toString());
-//      String XXE = Conexion.metodoDiaHoraToString(prueba);
-      int longuitud = lista.size();
-      for(int i = 0; i < longuitud; i++){
-          //int j = (int) lista.get(i);
-          System.out.println("Deb:" + Conexion.metodoDiaHoraToString((int)lista.get(i)));
-      }
-       lblPrueba.setText(lista.toString());
-    }//GEN-LAST:event_btnPruebaActionPerformed
-
     private void chkbSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkbSabadoActionPerformed
 
     }//GEN-LAST:event_chkbSabadoActionPerformed
@@ -2066,6 +2054,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadiobtnLamp1;
     private javax.swing.JRadioButton RadiobtnLamp2;
     private com.toedter.calendar.JDateChooser SelectorDia;
+    private javax.swing.JTabbedPane TabMaster;
     private javax.swing.JButton btnAceptarHours;
     private javax.swing.JButton btnAddBuild;
     private javax.swing.JButton btnAddClassRoom;
@@ -2075,7 +2064,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnEncender;
     private javax.swing.JButton btnPasarDatos;
-    private javax.swing.JButton btnPrueba;
     private javax.swing.JButton btnReloadTables;
     private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnReservar1;
@@ -2153,7 +2141,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
@@ -2165,7 +2153,6 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblHash;
     private javax.swing.JLabel lblLamp1;
     private javax.swing.JLabel lblLamp2;
-    private javax.swing.JLabel lblPrueba;
     private javax.swing.JLabel lblRoomidRes;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUserIdRes;

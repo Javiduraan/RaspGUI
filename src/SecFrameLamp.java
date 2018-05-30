@@ -46,9 +46,9 @@ public class SecFrameLamp extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control de clima e iluminación");
 
-        chkbLampara1.setText("Lamampara1");
+        chkbLampara1.setText("Lampara1");
 
-        chkbLampara2.setText("Lamampara2");
+        chkbLampara2.setText("Lampara2");
 
         btnOn.setText("Encender");
         btnOn.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +64,7 @@ public class SecFrameLamp extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar Conexión");
+        btnCancelar.setText("Cerrar Sesión");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
